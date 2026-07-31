@@ -166,6 +166,24 @@ No celular, a mesma lógica aplicada à fricção de toque (não remova):
 - **Nada pode vazar na horizontal.** URLs longas quebram (`overflow-wrap:anywhere`) e as colunas
   do grid levam `min-width:0` — sem isso a página inteira desloca e corta o texto na lateral.
 
+### Contraste (o tema claro é o que quebra)
+
+Texto precisa de **4.5:1**. O tema escuro passa folgado; o claro é o apertado, e o erro não é
+sobre branco — é sobre o fundo `--bg` (`#eef3fa`), que é mais claro que o texto secundário.
+O `--muted` do tema claro é `#59708a`: 5.11:1 sobre branco e 4.58:1 sobre o `--bg`. **Não clareie
+esse token** achando que "sobre branco passa" — sobre o fundo da página não passava (era 4.33:1),
+e ele aparece em `small`, `.group-sub`, `.desc` e nos contadores.
+
+### As duas exceções conscientes aos 44px
+
+Alvo de toque é 44px, com duas exceções que têm motivo e caminho alternativo:
+
+- **Ponto na imagem (36px).** Os pontos 4 e 5 da home ficam a 30px um do outro — as posições são
+  percentuais e encolhem com a imagem. Alvo de 44 faria um cobrir o outro e selecionar a dica
+  errada. Quem garante o alvo cheio é a legenda abaixo.
+- **Segmento da barra de progresso do passo a passo.** É atalho para voltar a um passo já visto;
+  o caminho de tamanho cheio é Anterior/Próximo.
+
 ## Comandos úteis
 
 ```bash

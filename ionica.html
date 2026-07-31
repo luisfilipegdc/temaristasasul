@@ -25,7 +25,7 @@
     --bg:#eef3fa; --bg-glow:#dce9f8;
     --surface:#ffffff; --surface-2:#f6fafd; --surface-3:#e9f1fa;
     --border:#dae4f0; --border-strong:#bed0e4;
-    --text:#0d2140; --text-dim:#33506f; --muted:#5c748f;
+    --text:#0d2140; --text-dim:#33506f; --muted:#59708a;
     --accent:#1a5fad; --accent-strong:#0f4a8f;
     --accent-soft:rgba(26,95,173,.09); --accent-line:rgba(26,95,173,.3);
     --ok:#0f7a45; --ok-soft:rgba(15,122,69,.1); --ok-line:rgba(15,122,69,.3);
@@ -56,6 +56,7 @@
   @media(max-width:640px){
     .topbar{padding:10px 16px; gap:10px;}
     .brand{min-width:0;}
+    .brand{min-height:44px;}
     .brand > span:last-child{min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
     .brand small{overflow:hidden; text-overflow:ellipsis;}
   }
@@ -63,7 +64,9 @@
   .ghost-btn{display:inline-flex; align-items:center; gap:7px; background:transparent; border:1px solid var(--border); color:var(--muted); border-radius:9px; padding:7px 12px; font-size:12px; cursor:pointer; text-decoration:none; transition:.18s; font-family:inherit; white-space:nowrap;}
   .ghost-btn:hover{border-color:var(--accent-line); color:var(--text);}
   @media(max-width:700px){ .ghost-btn .lbl-txt{display:none;} }
-  @media(max-width:640px){ .ghost-btn{padding:11px 13px;} }   /* alvo de toque */
+  /* alvo de toque de 44px (Fitts): erro de toque em ação de topo custa
+     a pessoa perder o lugar onde estava lendo */
+  @media(max-width:640px){ .ghost-btn{padding:11px 13px; min-height:44px; min-width:44px; justify-content:center;} }
 
   /* HERO */
   header.hero{padding:56px 26px 10px; text-align:center; max-width:820px; margin:0 auto;}
@@ -87,8 +90,8 @@
   .stat span{font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:1px;}
 
   /* SEARCH */
-  .search-sticky{position:sticky; top:55px; z-index:70; padding:20px 0 12px; background:var(--bg); border-bottom:1px solid transparent;}
-  .search-sticky.stuck{border-bottom-color:var(--border);}
+  /* a busca rola junto com a página — não fica grudada no topo */
+  .search-area{position:static; padding:20px 0 12px; background:var(--bg);}
   .search-inner{max-width:1180px; margin:0 auto; padding:0 26px; position:relative;}
   #search{width:100%; padding:14px 46px 14px 44px; border-radius:13px; border:1px solid var(--border-strong); background:var(--surface); color:var(--text); font-size:14.5px; font-family:inherit; outline:none; transition:.18s; box-shadow:var(--shadow);}
   #search::placeholder{color:var(--muted);}
@@ -110,7 +113,8 @@
   .layout > *{min-width:0;}
   .entry, .tldr, .faq, .callout, .flow-step, .contact-card{overflow-wrap:anywhere;}
   @media(max-width:900px){.layout{grid-template-columns:1fr; gap:0;}}
-  nav.sidenav{position:sticky; top:138px;}
+  /* só a topbar continua fixa, então o índice encosta logo abaixo dela */
+  nav.sidenav{position:sticky; top:82px;}
   @media(max-width:900px){
     nav.sidenav{position:static; margin-bottom:34px; display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
     nav.sidenav .nav-label{display:none;}
@@ -119,7 +123,7 @@
   nav.sidenav a{display:flex; align-items:center; gap:9px; padding:8px 12px; border-radius:9px; text-decoration:none; color:var(--muted); font-size:13px; transition:.16s; margin-bottom:2px; border-left:2px solid transparent;}
   nav.sidenav a:hover{color:var(--text); background:var(--surface);}
   nav.sidenav a.active{color:var(--accent); background:var(--accent-soft); border-left-color:var(--accent); font-weight:600;}
-  @media(max-width:900px){ nav.sidenav a{background:var(--surface); border:1px solid var(--border); border-left-width:1px; justify-content:center; text-align:center; font-size:12px; margin:0;} }
+  @media(max-width:900px){ nav.sidenav a{background:var(--surface); border:1px solid var(--border); border-left-width:1px; justify-content:center; text-align:center; font-size:12px; margin:0; min-height:44px;} }
 
   .callout{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:15px; padding:18px 22px; font-size:14px; margin-bottom:44px; color:var(--text-dim);}
   .callout b{color:var(--text);}
@@ -146,7 +150,8 @@
      No celular ele aparece e ganha área de toque (o link do tópico é o que
      a pessoa manda no WhatsApp para a colega). */
   @media(max-width:640px){
-    .entry .anchor{opacity:.5; padding:8px 10px; margin:-8px -10px;}
+    .entry .anchor{opacity:.5; display:inline-flex; align-items:center; justify-content:center;
+                   min-width:44px; min-height:44px; margin:-11px -13px;}
   }
   .meta-tags{display:flex; align-items:center; gap:7px; flex-wrap:wrap;}
   .time{font-size:10.5px; color:var(--muted); border:1px solid var(--border); border-radius:20px; padding:3px 9px; white-space:nowrap;}
@@ -196,7 +201,8 @@
   .flow-dots button.ativo{background:var(--accent);}
   /* alvo de toque de verdade sem engordar a barrinha */
   .flow-dots button{position:relative;}
-  .flow-dots button::after{content:''; position:absolute; inset:-14px 0;}
+  /* a barrinha tem 5px, mas o alvo de toque vai a 45px por fora */
+  .flow-dots button::after{content:''; position:absolute; inset:-20px 0;}
 
   .flow-nav{display:flex; align-items:center; gap:10px; margin-top:18px; padding-top:15px; border-top:1px solid var(--border);}
   .flow-nav button{
@@ -224,6 +230,9 @@
   }
   .flow-again:hover{border-color:var(--accent); color:var(--accent);}
   @media(max-width:640px){
+    /* empilhado, cada segmento fica com o dobro de largura para tocar */
+    .flow-head{flex-direction:column; align-items:stretch; gap:8px;}
+    .flow-dots{width:100%;}
     .flow-nav button{flex:1 1 0; padding:13px 12px;}
     .flow-next{margin-left:0;}
     /* espremido ao lado do texto o botão ficava ilegível — vai para baixo, inteiro */
@@ -333,6 +342,11 @@
     /* o anel pulsante existe para chamar atenção; com a legenda numerada logo
        abaixo ele vira ruído sobre uma imagem pequena e cola os pontos vizinhos */
     .hot::before{display:none;}
+    /* Exceção consciente aos 44px: os pontos 4 e 5 da home ficam a 30px um do
+       outro (as posições são percentuais), então alvo de 44 faria um cobrir o
+       outro e selecionar a dica errada. Vai a 36px, e quem garante o alvo
+       cheio é a legenda abaixo — que é a entrada principal no celular. */
+    .hot::after{content:''; position:absolute; inset:-5px; border-radius:50%;}
     .shot-legend{display:grid; gap:6px; margin-top:10px;}
     .shot-legend button{
       display:flex; gap:10px; align-items:flex-start; text-align:left; width:100%;
@@ -401,7 +415,7 @@
     cursor:pointer; line-height:1.2; transition:.16s;
   }
   .zoom-btn:hover{border-color:var(--accent); color:var(--accent);}
-  @media(max-width:640px){ .zoom-btn{padding:10px 14px; font-size:12.5px;} }
+  @media(max-width:640px){ .zoom-btn{padding:12px 16px; font-size:12.5px; min-height:44px;} }
   #lightbox .close{position:absolute; top:20px; right:26px; background:transparent; border:1px solid rgba(255,255,255,.3); color:#fff; width:38px; height:38px; border-radius:10px; font-size:18px; cursor:pointer; font-family:inherit;}
   #lightbox .close:hover{border-color:#fff;}
   /* o anel de foco padrão do navegador vinha âmbar — fora da identidade */
@@ -459,7 +473,7 @@
   /* o WhatsApp continua sendo a ação primária; o e-mail só ganha alvo tocável */
   @media(max-width:640px){
     .wa-btn{padding:13px 14px; font-size:14px;}
-    .mail-lnk{padding:8px 0; min-height:34px;}
+    .mail-lnk{padding:10px 0; min-height:44px;}
   }
   .closing{text-align:center; background:var(--surface); border:1px solid var(--border); border-radius:15px; padding:26px 24px; margin-top:14px; font-size:14px; color:var(--text-dim);}
   .closing b{color:var(--text);}
@@ -483,7 +497,7 @@
 
   @media print{
     body{background:#fff; color:#000;}
-    .topbar,.search-sticky,.search-status,nav.sidenav,.totop,.triage,.stats,#progress,#toast,#lightbox,.resolve,.video-row:not(.ready),.zoom-btn,.flow-head,.flow-nav,.flow-done{display:none !important;}
+    .topbar,.search-area,.search-status,nav.sidenav,.totop,.triage,.stats,#progress,#toast,#lightbox,.resolve,.video-row:not(.ready),.zoom-btn,.flow-head,.flow-nav,.flow-done{display:none !important;}
     .flow .flow-step{display:block !important; padding-bottom:20px;}
     .layout{display:block; padding:0; max-width:100%;}
     .entry,.faq,.callout,.contact-card,.closing,.shot-frame{border:1px solid #ccc !important; background:#fff !important; break-inside:avoid; box-shadow:none !important;}
@@ -543,7 +557,7 @@
   </div>
 </div>
 
-<div class="search-sticky" id="searchBar">
+<div class="search-area">
   <div class="search-inner">
     <span class="search-icon">🔎</span>
     <input id="search" type="text" autocomplete="off" placeholder="Buscar: cache, biblioteca, senha, relatórios, sessão expirada…" aria-label="Buscar na base de conhecimento">
@@ -1134,6 +1148,13 @@
   document.getElementById('statVideos').textContent = document.querySelectorAll('.video-row.ready').length;
   document.getElementById('statFaqs').textContent   = document.querySelectorAll('.faq').length;
 
+  /* quanto do topo a topbar fixa cobre — medido, não chutado, porque a
+     altura muda com a largura da tela */
+  function topoFixo(){
+    const t = document.querySelector('.topbar');
+    return (t ? t.getBoundingClientRect().height : 0) + 12;
+  }
+
   /* ---------- áreas de foco nas imagens ----------
      Um controlador por figura. Os pontos na imagem e os itens da legenda são
      duas entradas para a MESMA seleção — nunca dois mecanismos concorrentes.
@@ -1182,7 +1203,7 @@
                  : (origem === 'legenda' ? frame : null);
       if(!alvo) return;
       const r = alvo.getBoundingClientRect();
-      if(r.top < 132 || r.bottom > window.innerHeight){
+      if(r.top < topoFixo() || r.bottom > window.innerHeight){
         alvo.scrollIntoView({
           block: 'center',
           behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth'
@@ -1412,7 +1433,7 @@
 
       if(rolar){
         const r = flow.getBoundingClientRect();
-        if(r.top < 132) flow.scrollIntoView({
+        if(r.top < topoFixo()) flow.scrollIntoView({
           block: 'start',
           behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth'
         });
@@ -1502,15 +1523,13 @@
     });
   });
 
-  /* ---------- progresso, topo, sticky ---------- */
+  /* ---------- progresso e voltar ao topo ---------- */
   const bar = document.getElementById('progress');
-  const searchBar = document.getElementById('searchBar');
   const top = document.getElementById('toTop');
   window.addEventListener('scroll', () => {
     const h = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
     top.classList.toggle('show', window.scrollY > 600);
-    searchBar.classList.toggle('stuck', window.scrollY > 340);
   }, {passive:true});
   top.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
