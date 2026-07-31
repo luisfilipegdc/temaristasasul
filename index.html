@@ -262,6 +262,9 @@
     /* o ponto vira âncora visual: quem comanda é a legenda. Sem isso ele
        engole o toque e não acontece nada, além de tampar a imagem pequena. */
     .hot{width:24px; height:24px; font-size:11px; pointer-events:none;}
+    /* o anel pulsante existe para chamar atenção; com a legenda numerada logo
+       abaixo ele vira ruído sobre uma imagem pequena e cola os pontos vizinhos */
+    .hot::before{display:none;}
     .shot-legend{display:grid; gap:6px; margin-top:10px;}
     .shot-legend button{
       display:flex; gap:10px; align-items:flex-start; text-align:left; width:100%;
@@ -1111,6 +1114,17 @@
         frame.style.setProperty('--sx', hot.dataset.x);
         frame.style.setProperty('--sy', hot.dataset.y);
         frame.classList.add('focused');
+
+        /* de nada adianta destacar uma área da imagem que já saiu da tela:
+           em legenda longa o item tocado fica abaixo da imagem */
+        const r = frame.getBoundingClientRect();
+        const topo = 132;                       /* cabeçalho + busca fixos */
+        if(r.top < topo || r.bottom > window.innerHeight){
+          frame.scrollIntoView({
+            block: 'center',
+            behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth'
+          });
+        }
       });
       list.appendChild(b);
     });
