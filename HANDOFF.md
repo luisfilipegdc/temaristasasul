@@ -179,9 +179,12 @@ Cada item abaixo é intencional. Se for mexer, saiba o que está removendo:
    feito com a iônica), anotar o fluxo de acesso e os erros comuns, e mandar prints. Aí elas
    passam a seguir o padrão da `ionica.html`. **É o item mais urgente**, porque a triagem já
    promete as três plataformas na porta de entrada.
-1. **Gravar os vídeos curtos.** Quase todo tópico está com `🎥 Vídeo curto — a gravar`. Quando
-   gravar, troque o `<div class="video-row">` por um `.video-row.ready` com os links, no mesmo
-   padrão do tópico "Avaliações (Estuda.com)", e adicione o chip `<span class="fmt vid">🎥 Vídeo</span>`.
+1. **Gravar os vídeos curtos.** Dois já estão no ar, no canal Tecnologia Educacional Marista
+   Asa Sul: *Como acessar a Iônica* (tópico `login`) e *Minha Iônica* (tópico `painel`). Os
+   demais tópicos ainda estão com `🎥 Vídeo curto + print — a produzir`. Para encaixar um vídeo
+   novo, copie o bloco `<figure class="video-player">` de um dos dois, troque `data-src` e
+   `data-titulo`, acrescente o chip `<span class="fmt vid">🎥 Vídeo</span>` nas `meta-tags` e
+   apague o `.video-row` de pendência. O contador do topo se atualiza sozinho.
 2. **Prints das demais telas** com hotspots: Biblioteca (5 abas), Relatórios, Perfil/Ajustes,
    Licenças e Dispositivos. Já existe o componente pronto — é só seguir o padrão do `CLAUDE.md`.
 3. **Trazer artigos da Central de Ajuda oficial** para o formato rápido: criar e corrigir
