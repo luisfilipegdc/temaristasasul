@@ -87,8 +87,8 @@
   .stat span{font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:1px;}
 
   /* SEARCH */
-  .search-sticky{position:sticky; top:55px; z-index:70; padding:20px 0 12px; background:var(--bg); border-bottom:1px solid transparent;}
-  .search-sticky.stuck{border-bottom-color:var(--border);}
+  /* a busca rola junto com a página — não fica grudada no topo */
+  .search-area{position:static; padding:20px 0 12px; background:var(--bg);}
   .search-inner{max-width:1180px; margin:0 auto; padding:0 26px; position:relative;}
   #search{width:100%; padding:14px 46px 14px 44px; border-radius:13px; border:1px solid var(--border-strong); background:var(--surface); color:var(--text); font-size:14.5px; font-family:inherit; outline:none; transition:.18s; box-shadow:var(--shadow);}
   #search::placeholder{color:var(--muted);}
@@ -110,7 +110,8 @@
   .layout > *{min-width:0;}
   .entry, .tldr, .faq, .callout, .flow-step, .contact-card{overflow-wrap:anywhere;}
   @media(max-width:900px){.layout{grid-template-columns:1fr; gap:0;}}
-  nav.sidenav{position:sticky; top:138px;}
+  /* só a topbar continua fixa, então o índice encosta logo abaixo dela */
+  nav.sidenav{position:sticky; top:82px;}
   @media(max-width:900px){
     nav.sidenav{position:static; margin-bottom:34px; display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
     nav.sidenav .nav-label{display:none;}
@@ -483,7 +484,7 @@
 
   @media print{
     body{background:#fff; color:#000;}
-    .topbar,.search-sticky,.search-status,nav.sidenav,.totop,.triage,.stats,#progress,#toast,#lightbox,.resolve,.video-row:not(.ready),.zoom-btn,.flow-head,.flow-nav,.flow-done{display:none !important;}
+    .topbar,.search-area,.search-status,nav.sidenav,.totop,.triage,.stats,#progress,#toast,#lightbox,.resolve,.video-row:not(.ready),.zoom-btn,.flow-head,.flow-nav,.flow-done{display:none !important;}
     .flow .flow-step{display:block !important; padding-bottom:20px;}
     .layout{display:block; padding:0; max-width:100%;}
     .entry,.faq,.callout,.contact-card,.closing,.shot-frame{border:1px solid #ccc !important; background:#fff !important; break-inside:avoid; box-shadow:none !important;}
@@ -543,7 +544,7 @@
   </div>
 </div>
 
-<div class="search-sticky" id="searchBar">
+<div class="search-area">
   <div class="search-inner">
     <span class="search-icon">🔎</span>
     <input id="search" type="text" autocomplete="off" placeholder="Buscar: cache, biblioteca, senha, relatórios, sessão expirada…" aria-label="Buscar na base de conhecimento">
@@ -1134,6 +1135,13 @@
   document.getElementById('statVideos').textContent = document.querySelectorAll('.video-row.ready').length;
   document.getElementById('statFaqs').textContent   = document.querySelectorAll('.faq').length;
 
+  /* quanto do topo a topbar fixa cobre — medido, não chutado, porque a
+     altura muda com a largura da tela */
+  function topoFixo(){
+    const t = document.querySelector('.topbar');
+    return (t ? t.getBoundingClientRect().height : 0) + 12;
+  }
+
   /* ---------- áreas de foco nas imagens ----------
      Um controlador por figura. Os pontos na imagem e os itens da legenda são
      duas entradas para a MESMA seleção — nunca dois mecanismos concorrentes.
@@ -1182,7 +1190,7 @@
                  : (origem === 'legenda' ? frame : null);
       if(!alvo) return;
       const r = alvo.getBoundingClientRect();
-      if(r.top < 132 || r.bottom > window.innerHeight){
+      if(r.top < topoFixo() || r.bottom > window.innerHeight){
         alvo.scrollIntoView({
           block: 'center',
           behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth'
@@ -1412,7 +1420,7 @@
 
       if(rolar){
         const r = flow.getBoundingClientRect();
-        if(r.top < 132) flow.scrollIntoView({
+        if(r.top < topoFixo()) flow.scrollIntoView({
           block: 'start',
           behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth'
         });
@@ -1502,15 +1510,13 @@
     });
   });
 
-  /* ---------- progresso, topo, sticky ---------- */
+  /* ---------- progresso e voltar ao topo ---------- */
   const bar = document.getElementById('progress');
-  const searchBar = document.getElementById('searchBar');
   const top = document.getElementById('toTop');
   window.addEventListener('scroll', () => {
     const h = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
     top.classList.toggle('show', window.scrollY > 600);
-    searchBar.classList.toggle('stuck', window.scrollY > 340);
   }, {passive:true});
   top.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
