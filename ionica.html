@@ -370,9 +370,10 @@
     .video-row a{padding:11px 0; display:inline-flex; align-items:center; min-height:44px;} }
 
   /* ---------- vídeo do tópico ----------
-     Fachada: o iframe do Vimeo só entra no clique. Assim a página não carrega
-     player de terceiro em quem só quer ler, e o espaço já fica reservado pela
-     proporção real do vídeo — sem salto de layout quando ele aparece. */
+     Fachada: o iframe do player só entra no clique. Assim a página não carrega
+     script de terceiro em quem só quer ler, e o espaço já fica reservado pela
+     proporção do vídeo — sem salto de layout quando ele aparece.
+     Trocar de vídeo é trocar data-src e data-titulo, nada mais. */
   .video-player{margin:16px 0 0;}
   .video-frame{
     position:relative; width:100%; aspect-ratio:var(--ar, 16/9); border-radius:13px; overflow:hidden;
@@ -574,16 +575,16 @@
         <div class="tldr"><span class="lbl">Resumo</span><span>O caminho que funciona para todo mundo é o <b>botão Microsoft</b>. Se você já tem usuário e senha da iônica, também dá para entrar por eles.</span></div>
 
         <figure class="video-player">
-          <div class="video-frame" style="--ar:384/240"
-               data-src="https://player.vimeo.com/video/1214674471?autoplay=1&amp;title=0&amp;byline=0&amp;portrait=0"
-               data-titulo="Como acessar a iônica">
+          <div class="video-frame" style="--ar:16/9"
+               data-src="https://www.youtube-nocookie.com/embed/NYRKj2xWrDQ?autoplay=1&amp;rel=0"
+               data-titulo="Como acessar a Iônica">
             <button class="video-cta" type="button">
               <span class="play" aria-hidden="true">▶</span>
               <span class="rot">Assistir: como acessar a iônica</span>
-              <span class="dur">1 min 28 · prefere ver? comece por aqui</span>
+              <span class="dur">Prefere ver? Comece por aqui.</span>
             </button>
           </div>
-          <figcaption class="video-legenda">Se preferir ler, o passo a passo com prints está logo abaixo. <a href="https://vimeo.com/1214674471" target="_blank" rel="noopener">Abrir no Vimeo</a></figcaption>
+          <figcaption class="video-legenda">Se preferir ler, o passo a passo com prints está logo abaixo. <a href="https://youtu.be/NYRKj2xWrDQ" target="_blank" rel="noopener">Abrir no YouTube</a></figcaption>
         </figure>
 
         <div class="flow">
@@ -1135,8 +1136,8 @@
     document.querySelectorAll('.video-row.ready, .video-player').length;
 
   /* ---------- vídeo do tópico ----------
-     O iframe do Vimeo só é criado no clique: quem só quer ler não carrega
-     player de terceiro. O espaço já está reservado pelo aspect-ratio. */
+     O iframe só é criado no clique: quem só quer ler não carrega player de
+     terceiro. O espaço já está reservado pelo aspect-ratio. */
   document.querySelectorAll('.video-frame').forEach(frame => {
     const cta = frame.querySelector('.video-cta');
     if(!cta || !frame.dataset.src) return;
