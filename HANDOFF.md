@@ -91,10 +91,11 @@ acesso" acontece na passagem entre esses sistemas — isso é a tese central da 
 
 **Endereço:** `home.souionica.com.br` · a home se chama "Minha iônica" (`/home`).
 
-**Login:** o professor entra **exclusivamente pelo botão Microsoft**. Usuário/senha, "Criar conta"
-e o botão do Google existem na tela mas **não são o caminho do professor**. Se o login pela
-Microsoft não funciona, o acesso não foi liberado — a pessoa deve procurar o responsável pelo seu
-segmento. Pode haver MFA (aprovação pelo app Outlook com número, ou código por SMS). No primeiro
+**Login:** o caminho que funciona para todo mundo é o **botão Microsoft**. Mas **o professor pode
+já ter usuário e senha da própria iônica** e entrar por eles — isso foi corrigido em 31/07/2026,
+depois de a página ter afirmado por um tempo que esses campos "não serviam". O botão do Google e
+o "Criar conta" continuam fora do caminho do professor. Se o login pela Microsoft não funciona, o
+acesso não foi liberado — a pessoa deve procurar o responsável pelo seu segmento. Pode haver MFA (aprovação pelo app Outlook com número, ou código por SMS). No primeiro
 acesso aparece um pop-up de novidades: clicar em "Continuar".
 
 **Seletor de escola** no topo ("Você está em: COLÉGIO MARISTA…"). Turmas, biblioteca e relatórios
@@ -179,9 +180,12 @@ Cada item abaixo é intencional. Se for mexer, saiba o que está removendo:
    feito com a iônica), anotar o fluxo de acesso e os erros comuns, e mandar prints. Aí elas
    passam a seguir o padrão da `ionica.html`. **É o item mais urgente**, porque a triagem já
    promete as três plataformas na porta de entrada.
-1. **Gravar os vídeos curtos.** Quase todo tópico está com `🎥 Vídeo curto — a gravar`. Quando
-   gravar, troque o `<div class="video-row">` por um `.video-row.ready` com os links, no mesmo
-   padrão do tópico "Avaliações (Estuda.com)", e adicione o chip `<span class="fmt vid">🎥 Vídeo</span>`.
+1. **Gravar os vídeos curtos.** Dois já estão no ar, no canal Tecnologia Educacional Marista
+   Asa Sul: *Como acessar a Iônica* (tópico `login`) e *Minha Iônica* (tópico `painel`). Os
+   demais tópicos ainda estão com `🎥 Vídeo curto + print — a produzir`. Para encaixar um vídeo
+   novo, copie o bloco `<figure class="video-player">` de um dos dois, troque `data-src` e
+   `data-titulo`, acrescente o chip `<span class="fmt vid">🎥 Vídeo</span>` nas `meta-tags` e
+   apague o `.video-row` de pendência. O contador do topo se atualiza sozinho.
 2. **Prints das demais telas** com hotspots: Biblioteca (5 abas), Relatórios, Perfil/Ajustes,
    Licenças e Dispositivos. Já existe o componente pronto — é só seguir o padrão do `CLAUDE.md`.
 3. **Trazer artigos da Central de Ajuda oficial** para o formato rápido: criar e corrigir
