@@ -91,10 +91,11 @@ acesso" acontece na passagem entre esses sistemas — isso é a tese central da 
 
 **Endereço:** `home.souionica.com.br` · a home se chama "Minha iônica" (`/home`).
 
-**Login:** o professor entra **exclusivamente pelo botão Microsoft**. Usuário/senha, "Criar conta"
-e o botão do Google existem na tela mas **não são o caminho do professor**. Se o login pela
-Microsoft não funciona, o acesso não foi liberado — a pessoa deve procurar o responsável pelo seu
-segmento. Pode haver MFA (aprovação pelo app Outlook com número, ou código por SMS). No primeiro
+**Login:** o caminho que funciona para todo mundo é o **botão Microsoft**. Mas **o professor pode
+já ter usuário e senha da própria iônica** e entrar por eles — isso foi corrigido em 31/07/2026,
+depois de a página ter afirmado por um tempo que esses campos "não serviam". O botão do Google e
+o "Criar conta" continuam fora do caminho do professor. Se o login pela Microsoft não funciona, o
+acesso não foi liberado — a pessoa deve procurar o responsável pelo seu segmento. Pode haver MFA (aprovação pelo app Outlook com número, ou código por SMS). No primeiro
 acesso aparece um pop-up de novidades: clicar em "Continuar".
 
 **Seletor de escola** no topo ("Você está em: COLÉGIO MARISTA…"). Turmas, biblioteca e relatórios
