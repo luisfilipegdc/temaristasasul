@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia do Professor | Plataforma Estuda</title>
+<style>
+  :root{
+    --bg:#0a1224;
+    --panel:#111d33;
+    --panel2:#152540;
+    --accent:#4da3ff;
+    --accent2:#1e3a5f;
+    --text:#e7ecf3;
+    --muted:#93a0b4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 80% -10%, #12203a 0%, var(--bg) 60%);
+    color:var(--text);
+    line-height:1.65;
+  }
+  .topbar{
+    position:sticky; top:0; z-index:60;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 28px;
+    background:rgba(11,15,26,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.5px;}
+  .brand .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 12px var(--accent);}
+  header.hero{
+    padding:80px 28px 50px; text-align:center; max-width:900px; margin:0 auto;
+  }
+  .kicker{
+    display:inline-block; font-size:12px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--accent); border:1px solid rgba(0,217,192,.4); padding:6px 14px; border-radius:30px;
+    background:rgba(0,217,192,.06); margin-bottom:22px;
+  }
+  h1.title{font-size:40px; margin:0 0 16px; background:linear-gradient(90deg,#fff,var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .subtitle{color:var(--muted); font-size:17px; max-width:620px; margin:0 auto;}
+
+  /* topic grid nav */
+  .topics-nav{max-width:1080px; margin:0 auto 50px; padding:0 24px; display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  @media(max-width:820px){.topics-nav{grid-template-columns:repeat(2,1fr);}}
+  .topic-card-nav{
+    background:var(--panel); border:1px solid rgba(255,255,255,.07); border-radius:14px; padding:18px;
+    text-decoration:none; color:var(--text); transition:.2s; display:flex; flex-direction:column; gap:8px;
+  }
+  .topic-card-nav:hover{border-color:var(--accent); transform:translateY(-2px);}
+  .topic-card-nav .icon{font-size:22px;}
+  .topic-card-nav .lbl{font-size:14px; font-weight:600;}
+  .topic-card-nav .sub{font-size:12px; color:var(--muted);}
+
+  main{max-width:960px; margin:0 auto; padding:0 24px 100px;}
+  section{margin:70px 0; scroll-margin-top:90px;}
+  .section-head{display:flex; align-items:center; gap:14px; margin-bottom:8px;}
+  .icon-badge{
+    width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-size:22px; background:linear-gradient(135deg,var(--accent),var(--accent2)); flex-shrink:0;
+  }
+  .section-head h2{margin:0; font-size:25px;}
+  .lead{color:var(--muted); font-size:15px; margin:10px 0 26px;}
+  .card{
+    background:linear-gradient(180deg,var(--panel),var(--panel2));
+    border:1px solid rgba(255,255,255,0.07);
+    border-radius:16px; padding:26px 28px; margin-bottom:18px;
+  }
+  .video-embed{
+    position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:14px; margin-bottom:18px;
+    border:1px solid rgba(255,255,255,0.08);
+  }
+  .video-embed iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0;}
+  .steps{list-style:none; padding:0; margin:0; counter-reset:step;}
+  .steps li{
+    counter-increment:step; position:relative; padding:14px 0 14px 46px; border-top:1px solid rgba(255,255,255,0.06);
+  }
+  .steps li:first-child{border-top:none;}
+  .steps li::before{
+    content:counter(step); position:absolute; left:0; top:14px; width:28px; height:28px; border-radius:8px;
+    background:rgba(0,217,192,.12); color:var(--accent); border:1px solid rgba(0,217,192,.3);
+    display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;
+  }
+  .steps b{color:#fff;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr;}}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  @media(max-width:820px){.grid3{grid-template-columns:1fr;}}
+  .pill{display:inline-block; font-size:11px; padding:4px 10px; border-radius:20px; background:rgba(91,140,255,.14); color:var(--accent2); border:1px solid rgba(91,140,255,.3); margin:2px 6px 2px 0;}
+  .note{
+    display:flex; gap:12px; padding:16px 18px; border-radius:12px; background:rgba(91,140,255,.08);
+    border:1px solid rgba(91,140,255,.25); font-size:14px; color:var(--text);
+  }
+  a.link{color:var(--accent); text-decoration:none; border-bottom:1px dashed var(--accent);}
+  a.link:hover{opacity:.8;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:10px; font-size:14px; font-weight:600;
+    background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#04121a; text-decoration:none; margin-top:8px;
+  }
+  .mini-card{
+    background:var(--panel); border:1px solid rgba(255,255,255,.07); border-radius:14px; padding:20px;
+  }
+  .mini-card h4{margin:0 0 8px; font-size:15px; color:#fff; display:flex; align-items:center; gap:8px;}
+  .mini-card p{margin:0 0 12px; font-size:13px; color:var(--muted);}
+  table{width:100%; border-collapse:collapse; font-size:14px;}
+  th,td{padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.08); text-align:left;}
+  th{color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.5px;}
+  footer{text-align:center; padding:40px 24px; color:var(--muted); font-size:13px; border-top:1px solid rgba(255,255,255,0.06);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="dot"></span> Rede Marista Brasil · Guia do Professor</div>
+  <a href="https://maristabrasil.org/" target="_blank" style="color:var(--muted); text-decoration:none; font-size:12px;">maristabrasil.org ↗</a>
+</div>
+
+<header class="hero">
+  <span class="kicker">Rede Marista Brasil · Central de Apoio ao Professor · Time TE</span>
+  <h1 class="title">Guia do Professor — Plataforma Estuda</h1>
+  <p class="subtitle">Um guia rápido e visual para você configurar provas, adicionar questões e usar as Adaptações Inteligentes no dia a dia da sala de aula.</p>
+</header>
+
+<nav class="topics-nav">
+  <a class="topic-card-nav" href="#configurar">
+    <span class="icon">📝</span>
+    <span class="lbl">Configurar uma prova</span>
+    <span class="sub">Criar avaliação do zero</span>
+  </a>
+  <a class="topic-card-nav" href="#questoes">
+    <span class="icon">📚</span>
+    <span class="lbl">Adicionar questões</span>
+    <span class="sub">Banco próprio, Banco de Provas e mais</span>
+  </a>
+  <a class="topic-card-nav" href="#adaptacoes">
+    <span class="icon">🧩</span>
+    <span class="lbl">Adaptações Inteligentes</span>
+    <span class="sub">Provas acessíveis com IA</span>
+  </a>
+  <a class="topic-card-nav" href="#mais-recursos">
+    <span class="icon">🛠️</span>
+    <span class="lbl">Outros recursos úteis</span>
+    <span class="sub">Arquivar, link online, correção</span>
+  </a>
+</nav>
+
+<main>
+
+  <section id="configurar">
+    <div class="section-head">
+      <div class="icon-badge">📝</div>
+      <div><h2>Configurar uma prova</h2></div>
+    </div>
+    <p class="lead">O primeiro passo é montar a "casca" da sua avaliação: nome, disciplina, turma e o formato que ela vai ter. É rápido — em poucos minutos você já parte para as questões.</p>
+    <div class="card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/rDZt5a4lLvs" title="Configuração inicial da prova" allowfullscreen></iframe>
+      </div>
+      <ol class="steps">
+        <li>Vá em <b>Avaliações → Nova avaliação</b>.</li>
+        <li>Preencha nome da prova, disciplina, série/turma e data de aplicação.</li>
+        <li>Escolha o formato: <b>impresso, misto (impresso + digital) ou 100% online</b> — isso define quais recursos você terá disponíveis depois, como as Adaptações Inteligentes.</li>
+        <li>Ajuste as regras de correção: peso por questão, critério de aprovação e se o gabarito ficará visível para o aluno.</li>
+        <li>Salve — sua prova fica em rascunho, pronta para receber as questões, na aba <b>"Todas as Avaliações"</b>.</li>
+      </ol>
+      <div class="note" style="margin-top:16px;">
+        <span>💡</span>
+        <span>Assista ao vídeo acima com a plataforma aberta ao lado — assim você acompanha exatamente onde clicar em cada etapa.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="questoes">
+    <div class="section-head">
+      <div class="icon-badge">📚</div>
+      <div><h2>Adicionar questões na prova</h2></div>
+    </div>
+    <p class="lead">Depois de configurada, é hora de montar o conteúdo da prova. A Estuda te dá três caminhos — use o que fizer mais sentido para o seu objetivo pedagógico.</p>
+    <div class="card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/8eb_wxRFIwU" title="Adicionar questões na prova" allowfullscreen></iframe>
+      </div>
+      <ol class="steps">
+        <li>Dentro da prova criada, acesse a aba <b>"Questões"</b>.</li>
+        <li>Escolha de onde vêm as questões: <b>banco de questões da Estuda</b> (filtrando por disciplina, tema, ano/prova de referência e dificuldade), <b>questões próprias</b> cadastradas por você, ou <b>importação</b> de um arquivo.</li>
+        <li>Misture questões <b>objetivas e discursivas</b> conforme o que quer avaliar.</li>
+        <li>Reorganize a ordem arrastando as questões e confira a numeração final.</li>
+        <li>Pré-visualize tudo — enunciados, imagens e gabarito — antes de fechar.</li>
+        <li>Gere o arquivo em <b>PDF, Word ou impressão direta</b> pelo navegador.</li>
+      </ol>
+    </div>
+    <div class="mini-card">
+      <h4>🏦 Quer economizar tempo? Use o Banco de Provas</h4>
+      <p>Em vez de montar questão por questão, o Banco de Provas te entrega <b>avaliações prontas de vestibulares e concursos</b> para aplicar direto.</p>
+      <ol class="steps">
+        <li>Acesse <b>Avaliações → Banco de provas</b>.</li>
+        <li>Use os filtros de <b>instituição</b>, <b>ano</b> ou busca por palavra-chave.</li>
+        <li>Clique em <b>"Visualizar prova"</b> para conferir o conteúdo antes de decidir.</li>
+        <li>Gostou? Clique em <b>"Aplicar avaliação"</b> e ajuste os parâmetros para a sua turma.</li>
+      </ol>
+      <a class="link" href="https://ajudaescola.estuda.com/hc/pt-br/articles/47183304044315-Banco-de-Provas" target="_blank">Ver artigo completo sobre o Banco de Provas →</a>
+    </div>
+  </section>
+
+  <section id="adaptacoes">
+    <div class="section-head">
+      <div class="icon-badge">🧩</div>
+      <div><h2>Usar Adaptações Inteligentes</h2></div>
+    </div>
+    <p class="lead">Tem alunos com Necessidades Educacionais Especiais (NEE) na turma? A plataforma usa IA para gerar automaticamente versões adaptadas da mesma prova — sem trabalho extra para você.</p>
+    <div class="card">
+      <div>
+        <span class="pill">IA generativa</span>
+        <span class="pill">Impresso ou misto</span>
+        <span class="pill">Objetivas + Discursivas</span>
+        <span class="pill">Impressão inteligente</span>
+      </div>
+      <ol class="steps" style="margin-top:16px;">
+        <li>Cadastre as NEE em <b>Gerenciamento → Adaptações Inteligentes → "Adicionar aluno"</b>, descrevendo as dificuldades e necessidades específicas.</li>
+        <li>Crie a avaliação normalmente, em formato <b>impresso ou misto</b>, e selecione os alunos/turmas com NEE já cadastradas.</li>
+        <li>Um botão <b>"Adaptação"</b> aparece automaticamente — clique para gerar as versões adaptadas com um só clique.</li>
+        <li>Imprima e aplique: as versões ficam junto da prova principal, já com o <b>nome do aluno preenchido</b> automaticamente.</li>
+      </ol>
+      <h4 style="color:#fff; margin:22px 0 10px; font-size:15px;">O que mudou recentemente</h4>
+      <ul>
+        <li>Provas adaptadas agora ficam <b>agrupadas</b> dentro da prova principal, na aba "Todas as Avaliações".</li>
+        <li>Alunos com as mesmas adaptações saem em <b>um único arquivo</b> — mais rápido e economiza impressão.</li>
+        <li>Questões <b>discursivas</b> já entram no processo de adaptação por IA.</li>
+        <li>Nome do aluno preenchido automaticamente na impressão final (exige o cabeçalho padrão da plataforma).</li>
+      </ul>
+      <div class="note" style="margin-top:16px;">
+        <span>ℹ️</span>
+        <span>Disponível só para provas impressas ou mistas. A IA adapta automaticamente questões objetivas e discursivas; cartões-resposta têm fluxo próprio de download/upload direto na avaliação principal.</span>
+      </div>
+      <a class="btn" href="https://ajudaescola.estuda.com/hc/pt-br/articles/45698785785755-Adapta%C3%A7%C3%B5es-Inteligentes" target="_blank">Ler artigo completo →</a>
+    </div>
+  </section>
+
+  <section id="mais-recursos">
+    <div class="section-head">
+      <div class="icon-badge">🛠️</div>
+      <div><h2>Outros recursos úteis</h2></div>
+    </div>
+    <p class="lead">Depois que a prova está pronta e aplicada, esses recursos ajudam no dia a dia — arquivamento, aplicação online e correção.</p>
+    <div class="grid3">
+      <div class="mini-card">
+        <h4>🗂️ Arquivar uma avaliação</h4>
+        <p>Organize provas antigas sem perder o histórico, tirando-as da lista principal de avaliações ativas.</p>
+        <a class="link" href="https://ajudaescola.estuda.com/hc/pt-br/articles/12160653750043-Como-arquivar-uma-avalia%C3%A7%C3%A3o" target="_blank">Ver como fazer →</a>
+      </div>
+      <div class="mini-card">
+        <h4>🔗 Link direto da avaliação online</h4>
+        <p>Gere um link para o aluno acessar a prova online direto, sem precisar navegar pela plataforma.</p>
+        <a class="link" href="https://ajudaescola.estuda.com/hc/pt-br/articles/12159628711451-Como-enviar-o-link-direto-da-avalia%C3%A7%C3%A3o-online" target="_blank">Ver como fazer →</a>
+      </div>
+      <div class="mini-card">
+        <h4>✅ Correção pela folha de respostas</h4>
+        <p>Aplique a prova no papel e corrija digitalizando a folha de respostas — rápido e sem digitação manual de notas.</p>
+        <a class="link" href="https://ajudaescola.estuda.com/hc/pt-br/articles/18561148051483-Como-imprimir-provas-com-corre%C3%A7%C3%A3o-pela-folha-de-provas" target="_blank">Ver como fazer →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="suporte">
+    <div class="section-head">
+      <div class="icon-badge">☎️</div>
+      <div><h2>Fale com a gente</h2></div>
+    </div>
+    <p class="lead">Ficou com dúvida sobre algum desses fluxos? Fale direto com o time de Tecnologia Educacional do seu segmento.</p>
+    <div class="card">
+      <table>
+        <tr><th>Nome</th><th>Segmento</th><th>E-mail</th><th>Telefone</th></tr>
+        <tr><td>Luis Filipe</td><td>TE — Anos Finais</td><td><a class="link" href="mailto:luis.gomes@maristabrasil.org">luis.gomes@maristabrasil.org</a></td><td><a class="link" href="https://wa.me/556191784413" target="_blank">+55 61 9178-4413</a></td></tr>
+        <tr><td>Walyson</td><td>Anos Iniciais</td><td><a class="link" href="mailto:walyson.ramos@maristabrasil.org">walyson.ramos@maristabrasil.org</a></td><td><a class="link" href="https://wa.me/556199532943" target="_blank">+55 61 9953-2943</a></td></tr>
+        <tr><td>Evandro</td><td>Ensino Médio</td><td><a class="link" href="mailto:evandro.nascimento@maristabrasil.org">evandro.nascimento@maristabrasil.org</a></td><td><a class="link" href="https://wa.me/556193181701" target="_blank">+55 61 9318-1701</a></td></tr>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer>Guia elaborado pelo time de Tecnologia Educacional (TE) — Rede <a class="link" href="https://maristabrasil.org/" target="_blank">Marista Brasil</a> · Atualizado em 31/07/2026</footer>
+
+</body>
+</html>

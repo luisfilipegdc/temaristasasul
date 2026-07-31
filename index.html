@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base de Conhecimento — Iônica | Marista Brasília</title>
+<meta name="description" content="Guia rápido da plataforma Iônica para professores do Marista Brasília: como acessar, o que tem em cada área e como resolver os problemas mais comuns.">
+<meta property="og:title" content="Base de Conhecimento — Iônica | Marista Brasília">
+<meta property="og:description" content="Resposta em segundos: resumo, passo a passo ou vídeo curto.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%235aa9ff'/><text y='72' x='50' font-size='58' text-anchor='middle' font-family='Arial' font-weight='bold' fill='%2306182c'>M</text></svg>">
+<style>
+  :root[data-theme="dark"]{
+    --bg:#081020; --bg-glow:#12203a;
+    --surface:#101c31; --surface-2:#14243d; --surface-3:#1a2e4d;
+    --border:rgba(255,255,255,.09); --border-strong:rgba(255,255,255,.17);
+    --text:#eaf1f9; --text-dim:#b9c8da; --muted:#8a9cb2;
+    --accent:#5aa9ff; --accent-strong:#8cc4ff;
+    --accent-soft:rgba(90,169,255,.12); --accent-line:rgba(90,169,255,.35);
+    --ok:#3ddc84; --ok-soft:rgba(61,220,132,.14); --ok-line:rgba(61,220,132,.35);
+    --warn:#ffb454; --warn-soft:rgba(255,180,84,.12); --warn-line:rgba(255,180,84,.38);
+    --shadow:0 18px 40px rgba(0,0,0,.35); --on-accent:#06182c;
+  }
+  :root[data-theme="light"]{
+    --bg:#eef3fa; --bg-glow:#dce9f8;
+    --surface:#ffffff; --surface-2:#f6fafd; --surface-3:#e9f1fa;
+    --border:#dae4f0; --border-strong:#bed0e4;
+    --text:#0d2140; --text-dim:#33506f; --muted:#5c748f;
+    --accent:#1a5fad; --accent-strong:#0f4a8f;
+    --accent-soft:rgba(26,95,173,.09); --accent-line:rgba(26,95,173,.3);
+    --ok:#0f7a45; --ok-soft:rgba(15,122,69,.1); --ok-line:rgba(15,122,69,.3);
+    --warn:#a35b00; --warn-soft:rgba(163,91,0,.09); --warn-line:rgba(163,91,0,.3);
+    --shadow:0 12px 30px rgba(19,48,86,.1); --on-accent:#ffffff;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+    background:var(--bg); background-image:radial-gradient(1100px 520px at 85% -8%, var(--bg-glow) 0%, transparent 62%);
+    background-attachment:fixed; color:var(--text); line-height:1.62; -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);}
+  ::selection{background:var(--accent-soft);}
+  .skip{position:absolute; left:-9999px; top:0; background:var(--accent); color:var(--on-accent); padding:10px 16px; border-radius:0 0 8px 0; z-index:200;}
+  .skip:focus{left:0;}
+  #progress{position:fixed; top:0; left:0; height:3px; width:0; background:linear-gradient(90deg,var(--accent),var(--accent-strong)); z-index:120; transition:width .1s linear;}
+
+  /* TOPBAR */
+  .topbar{position:sticky; top:0; z-index:80; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 26px; background:var(--bg); border-bottom:1px solid var(--border);}
+  .brand{display:flex; align-items:center; gap:11px; font-weight:700; font-size:14.5px;}
+  .brand .mark{width:30px; height:30px; border-radius:9px; flex-shrink:0; background:linear-gradient(140deg,var(--accent),var(--accent-strong)); display:flex; align-items:center; justify-content:center; color:var(--on-accent); font-size:14px; font-weight:800;}
+  .brand small{display:block; font-weight:500; font-size:11px; color:var(--muted);}
+  .topbar-right{display:flex; align-items:center; gap:9px;}
+  .ghost-btn{display:inline-flex; align-items:center; gap:7px; background:transparent; border:1px solid var(--border); color:var(--muted); border-radius:9px; padding:7px 12px; font-size:12px; cursor:pointer; text-decoration:none; transition:.18s; font-family:inherit; white-space:nowrap;}
+  .ghost-btn:hover{border-color:var(--accent-line); color:var(--text);}
+  @media(max-width:700px){ .ghost-btn .lbl-txt{display:none;} }
+
+  /* HERO */
+  header.hero{padding:56px 26px 10px; text-align:center; max-width:820px; margin:0 auto;}
+  .kicker{display:inline-block; font-size:10.5px; letter-spacing:2.2px; text-transform:uppercase; font-weight:700; color:var(--accent); border:1px solid var(--accent-line); padding:6px 15px; border-radius:30px; background:var(--accent-soft); margin-bottom:20px;}
+  h1.title{font-size:clamp(28px,4.4vw,40px); line-height:1.18; margin:0 0 14px; letter-spacing:-.6px; font-weight:750;}
+  h1.title em{font-style:normal; color:var(--accent);}
+  .subtitle{color:var(--text-dim); font-size:16px; max-width:590px; margin:0 auto;}
+
+  .triage{max-width:900px; margin:38px auto 0; padding:0 26px;}
+  .triage-q{font-size:12px; text-transform:uppercase; letter-spacing:1.4px; color:var(--muted); font-weight:700; margin-bottom:14px;}
+  .triage-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  @media(max-width:760px){.triage-grid{grid-template-columns:1fr;}}
+  .triage-card{display:block; text-align:left; text-decoration:none; cursor:pointer; background:var(--surface); border:1px solid var(--border); border-radius:15px; padding:18px 20px; transition:.18s; font-family:inherit; color:var(--text);}
+  .triage-card:hover{border-color:var(--accent); transform:translateY(-2px); box-shadow:var(--shadow);}
+  .triage-card .ico{font-size:22px; display:block; margin-bottom:9px;}
+  .triage-card b{display:block; font-size:14.5px; margin-bottom:3px;}
+  .triage-card span{font-size:12.5px; color:var(--muted); line-height:1.5;}
+  .stats{display:flex; gap:30px; justify-content:center; margin:34px auto 0; flex-wrap:wrap;}
+  .stat{text-align:center;}
+  .stat b{display:block; font-size:21px; font-weight:750; color:var(--accent); line-height:1.2;}
+  .stat span{font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:1px;}
+
+  /* SEARCH */
+  .search-sticky{position:sticky; top:55px; z-index:70; padding:20px 0 12px; background:var(--bg); border-bottom:1px solid transparent;}
+  .search-sticky.stuck{border-bottom-color:var(--border);}
+  .search-inner{max-width:1180px; margin:0 auto; padding:0 26px; position:relative;}
+  #search{width:100%; padding:14px 46px 14px 44px; border-radius:13px; border:1px solid var(--border-strong); background:var(--surface); color:var(--text); font-size:14.5px; font-family:inherit; outline:none; transition:.18s; box-shadow:var(--shadow);}
+  #search::placeholder{color:var(--muted);}
+  #search:focus{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft);}
+  .search-icon{position:absolute; left:42px; top:50%; transform:translateY(-50%); font-size:15px; opacity:.6; pointer-events:none;}
+  .search-hint{position:absolute; right:42px; top:50%; transform:translateY(-50%); font-size:10.5px; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:2px 7px; pointer-events:none;}
+  .search-status{max-width:1180px; margin:8px auto 0; padding:0 26px; font-size:12.5px; color:var(--muted); min-height:18px;}
+
+  /* LAYOUT */
+  .layout{max-width:1180px; margin:22px auto 0; padding:0 26px 110px; display:grid; grid-template-columns:214px 1fr; gap:44px; align-items:start;}
+  @media(max-width:900px){.layout{grid-template-columns:1fr; gap:0;}}
+  nav.sidenav{position:sticky; top:138px;}
+  @media(max-width:900px){
+    nav.sidenav{position:static; margin-bottom:34px; display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
+    nav.sidenav .nav-label{display:none;}
+  }
+  .nav-label{font-size:10.5px; text-transform:uppercase; letter-spacing:1.4px; color:var(--muted); font-weight:700; margin-bottom:12px;}
+  nav.sidenav a{display:flex; align-items:center; gap:9px; padding:8px 12px; border-radius:9px; text-decoration:none; color:var(--muted); font-size:13px; transition:.16s; margin-bottom:2px; border-left:2px solid transparent;}
+  nav.sidenav a:hover{color:var(--text); background:var(--surface);}
+  nav.sidenav a.active{color:var(--accent); background:var(--accent-soft); border-left-color:var(--accent); font-weight:600;}
+  @media(max-width:900px){ nav.sidenav a{background:var(--surface); border:1px solid var(--border); border-left-width:1px; justify-content:center; text-align:center; font-size:12px; margin:0;} }
+
+  .callout{background:var(--accent-soft); border:1px solid var(--accent-line); border-radius:15px; padding:18px 22px; font-size:14px; margin-bottom:44px; color:var(--text-dim);}
+  .callout b{color:var(--text);}
+  .callout .ttl{display:flex; align-items:center; gap:8px; font-weight:700; color:var(--text); margin-bottom:7px; font-size:14.5px;}
+
+  /* SECTIONS */
+  section.topic-group{margin-bottom:54px; scroll-margin-top:150px;}
+  .group-head{display:flex; align-items:center; gap:13px; margin-bottom:6px;}
+  .group-head .badge{width:36px; height:36px; border-radius:10px; flex-shrink:0; background:var(--surface-3); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:17px;}
+  .group-head h2{margin:0; font-size:21px; letter-spacing:-.3px; font-weight:700;}
+  .group-sub{color:var(--muted); font-size:13px; margin:6px 0 20px 49px;}
+  @media(max-width:640px){.group-sub{margin-left:0;}}
+
+  /* ENTRY */
+  .entry{background:var(--surface); border:1px solid var(--border); border-radius:15px; padding:19px 22px; margin-bottom:12px; transition:.18s; scroll-margin-top:150px; position:relative;}
+  .entry:hover{border-color:var(--border-strong);}
+  .entry:target{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft);}
+  .entry-top{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  .entry-top h3{margin:0; font-size:16.5px; font-weight:650; letter-spacing:-.2px; display:flex; align-items:center; gap:8px;}
+  .anchor{opacity:0; text-decoration:none; color:var(--muted); font-size:13px; transition:.15s; font-weight:400; cursor:pointer;}
+  .entry:hover .anchor{opacity:.5;}
+  .anchor:hover{opacity:1 !important; color:var(--accent);}
+  .meta-tags{display:flex; align-items:center; gap:7px; flex-wrap:wrap;}
+  .time{font-size:10.5px; color:var(--muted); border:1px solid var(--border); border-radius:20px; padding:3px 9px; white-space:nowrap;}
+  .status{font-size:10px; font-weight:700; padding:3px 9px; border-radius:20px; white-space:nowrap; text-transform:uppercase; letter-spacing:.5px; background:var(--ok-soft); color:var(--ok); border:1px solid var(--ok-line);}
+  .status.video{background:var(--accent-soft); color:var(--accent); border-color:var(--accent-line);}
+  .status.img{background:var(--accent-soft); color:var(--accent); border-color:var(--accent-line);}
+  /* chip de formato: diz o que a pessoa vai encontrar, não status interno */
+  .fmt{font-size:10.5px; font-weight:650; padding:3px 10px; border-radius:20px; white-space:nowrap; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-line);}
+  .fmt.vid{background:var(--ok-soft); color:var(--ok); border-color:var(--ok-line);}
+
+  /* ---------- FLUXO PASSO A PASSO COM IMAGEM ---------- */
+  .flow{margin:18px 0 0; counter-reset:fl;}
+  .flow-step{position:relative; padding:0 0 24px 44px; counter-increment:fl;}
+  .flow-step:last-child{padding-bottom:0;}
+  .flow-step::before{
+    content:counter(fl); position:absolute; left:0; top:0; width:28px; height:28px; border-radius:9px;
+    background:var(--accent); color:var(--on-accent); font-size:13px; font-weight:800;
+    display:flex; align-items:center; justify-content:center; z-index:2;
+  }
+  .flow-step:not(:last-child)::after{content:''; position:absolute; left:13px; top:34px; bottom:4px; width:2px; background:var(--border-strong);}
+  .flow-step h4{margin:3px 0 6px; font-size:14.5px; font-weight:650; color:var(--text);}
+  .flow-step p{margin:0; font-size:13.6px; color:var(--text-dim);}
+  .flow-step p b{color:var(--text);}
+  .flow-alt{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px;}
+  @media(max-width:720px){.flow-alt{grid-template-columns:1fr;} .flow-step{padding-left:38px;}}
+  .alt-tag{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--accent); margin-bottom:7px;}
+  .top1{font-size:10px; font-weight:700; padding:3px 9px; border-radius:20px; white-space:nowrap; text-transform:uppercase; letter-spacing:.5px; background:var(--accent); color:var(--on-accent);}
+
+  .tldr{display:flex; gap:11px; align-items:flex-start; margin:13px 0 0; padding:11px 14px; border-radius:10px; background:var(--surface-2); border:1px solid var(--border); font-size:13.5px; color:var(--text-dim);}
+  .tldr .lbl{font-size:9.5px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--accent); flex-shrink:0; padding-top:3px;}
+  .tldr b{color:var(--text);}
+
+  .warn-box{display:flex; gap:11px; align-items:flex-start; margin:13px 0 0; padding:12px 15px; border-radius:10px; background:var(--warn-soft); border:1px solid var(--warn-line); font-size:13.4px; color:var(--text-dim);}
+  .warn-box .ic{font-size:15px; flex-shrink:0;}
+  .warn-box b{color:var(--text);}
+  .warn-box a{font-weight:600;}
+
+  .steps{list-style:none; counter-reset:st; padding:0; margin:14px 0 0;}
+  .steps li{counter-increment:st; position:relative; padding:0 0 11px 34px; font-size:13.8px; color:var(--text-dim);}
+  .steps li:last-child{padding-bottom:0;}
+  .steps li::before{content:counter(st); position:absolute; left:0; top:1px; width:22px; height:22px; border-radius:7px; font-size:11px; font-weight:700; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-line); display:flex; align-items:center; justify-content:center;}
+  .steps b, .bullets b{color:var(--text);}
+  .bullets{margin:13px 0 0; padding-left:19px; font-size:13.8px; color:var(--text-dim);}
+  .bullets li{margin-bottom:5px;}
+  .bullets li:last-child{margin-bottom:0;}
+  .prose{margin:13px 0 0; font-size:13.8px; color:var(--text-dim);}
+
+  code.path{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace; font-size:12px; background:var(--surface-3); padding:2px 7px; border-radius:6px; color:var(--accent-strong); border:1px solid var(--border); white-space:nowrap;}
+
+  /* ---------- IMAGEM COM ÁREAS DE FOCO ---------- */
+  .shot{margin:16px 0 0;}
+  .shot-frame{
+    position:relative; border-radius:12px; overflow:hidden; border:1px solid var(--border-strong);
+    background:var(--surface-3); line-height:0; cursor:zoom-in;
+  }
+  .shot-frame img{width:100%; height:auto; display:block;}
+  /* holofote: escurece tudo menos o ponto ativo */
+  .shot-frame .spot{
+    position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .28s ease;
+    background:radial-gradient(ellipse 13% 11% at var(--sx,50%) var(--sy,50%),
+      rgba(0,0,0,0) 0%, rgba(0,0,0,0) 62%, rgba(4,12,24,.74) 100%);
+  }
+  .shot-frame.focused .spot{opacity:1;}
+  .hot{
+    position:absolute; left:var(--x); top:var(--y); transform:translate(-50%,-50%);
+    width:30px; height:30px; border-radius:50%; cursor:pointer; z-index:3; padding:0;
+    background:var(--accent); color:var(--on-accent); border:2px solid #fff;
+    font-size:13px; font-weight:800; font-family:inherit; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 3px 12px rgba(0,0,0,.4); transition:transform .18s;
+  }
+  .hot::before{
+    content:''; position:absolute; inset:-6px; border-radius:50%;
+    border:2px solid var(--accent); opacity:.85; animation:ping 2.1s cubic-bezier(0,0,.2,1) infinite;
+  }
+  .hot.warn{background:var(--warn); border-color:#fff;}
+  .hot.warn::before{border-color:var(--warn);}
+  .hot:hover, .hot:focus-visible{transform:translate(-50%,-50%) scale(1.15); outline:none;}
+  .hot:hover::before, .hot:focus-visible::before{animation:none; opacity:0;}
+  @keyframes ping{0%{transform:scale(1); opacity:.85;} 70%{transform:scale(1.9); opacity:0;} 100%{opacity:0;}}
+  .hot .tip{
+    position:absolute; bottom:calc(100% + 12px); left:50%; transform:translateX(-50%) translateY(4px);
+    background:var(--text); color:var(--bg); padding:7px 12px; border-radius:8px;
+    font-size:12px; font-weight:600; line-height:1.4; white-space:normal; width:max-content; max-width:230px;
+    opacity:0; pointer-events:none; transition:.2s; text-align:center; box-shadow:0 6px 20px rgba(0,0,0,.35);
+  }
+  .hot .tip::after{content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:6px solid transparent; border-top-color:var(--text);}
+  .hot:hover .tip, .hot:focus-visible .tip{opacity:1; transform:translateX(-50%) translateY(0);}
+  .shot figcaption{margin-top:9px; font-size:12.3px; color:var(--muted); line-height:1.5;}
+  .shot figcaption .zoomhint{opacity:.7;}
+
+  /* lightbox */
+  #lightbox{
+    position:fixed; inset:0; z-index:150; background:rgba(4,10,20,.93); backdrop-filter:blur(4px);
+    display:flex; align-items:center; justify-content:center; padding:36px;
+    opacity:0; pointer-events:none; transition:.24s;
+  }
+  #lightbox.show{opacity:1; pointer-events:auto;}
+  #lightbox img{max-width:100%; max-height:100%; border-radius:10px; box-shadow:0 30px 70px rgba(0,0,0,.6);}
+  #lightbox .close{position:absolute; top:20px; right:26px; background:transparent; border:1px solid rgba(255,255,255,.3); color:#fff; width:38px; height:38px; border-radius:10px; font-size:18px; cursor:pointer; font-family:inherit;}
+  #lightbox .close:hover{border-color:#fff;}
+
+  .video-row{display:flex; align-items:center; gap:9px; margin-top:14px; padding:10px 14px; border-radius:10px; background:transparent; border:1px dashed var(--border-strong); font-size:12.5px; color:var(--muted); flex-wrap:wrap;}
+  .video-row.ready{border-style:solid; border-color:var(--accent-line); background:var(--accent-soft); color:var(--text-dim);}
+  .video-row a{color:var(--accent); text-decoration:none; font-weight:600; border-bottom:1px solid transparent;}
+  .video-row a:hover{border-bottom-color:var(--accent);}
+  .sep{opacity:.35;}
+
+  /* FAQ */
+  .faq{background:var(--surface); border:1px solid var(--border); border-radius:13px; padding:2px 20px; margin-bottom:10px; transition:.18s;}
+  .faq:hover{border-color:var(--border-strong);}
+  .faq[open]{border-color:var(--accent-line); background:var(--surface-2);}
+  .faq.solved{border-color:var(--ok-line); background:var(--ok-soft);}
+  .faq summary{cursor:pointer; font-weight:600; font-size:14.5px; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:14px; padding:15px 0;}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px;}
+  .summary-left{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .faq .chev{width:22px; height:22px; border-radius:7px; flex-shrink:0; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-line); display:flex; align-items:center; justify-content:center; font-size:14px; transition:.2s;}
+  .faq[open] .chev{transform:rotate(45deg);}
+  .faq .body{padding:0 0 16px; font-size:13.6px; color:var(--text-dim);}
+  .faq .body ol{padding-left:19px; margin:0;}
+  .faq .body ol li{margin-bottom:6px;}
+  .faq .body p{margin:0 0 8px;}
+  .faq .body p:last-of-type{margin-bottom:0;}
+  .faq .body b{color:var(--text);}
+  .resolve{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:15px; padding-top:13px; border-top:1px solid var(--border); font-size:12.5px; color:var(--muted);}
+  .btn-solve{background:var(--ok-soft); border:1px solid var(--ok-line); color:var(--ok); border-radius:8px; padding:6px 13px; font-size:12.5px; font-weight:600; cursor:pointer; font-family:inherit; transition:.16s;}
+  .btn-solve:hover{background:var(--ok); color:var(--on-accent);}
+  .btn-help{background:transparent; border:1px solid var(--border-strong); color:var(--text-dim); border-radius:8px; padding:6px 13px; font-size:12.5px; cursor:pointer; font-family:inherit; text-decoration:none; transition:.16s;}
+  .btn-help:hover{border-color:var(--accent); color:var(--accent);}
+  .solved-msg{color:var(--ok); font-weight:600;}
+
+  /* CONTATO */
+  .contact-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  @media(max-width:820px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px 20px; transition:.18s;}
+  .contact-card:hover{border-color:var(--accent-line);}
+  .contact-card .seg{font-size:10.5px; text-transform:uppercase; letter-spacing:1.1px; color:var(--accent); font-weight:700; margin-bottom:5px;}
+  .contact-card .nm{font-size:16px; font-weight:650; margin-bottom:13px;}
+  .wa-btn{display:flex; align-items:center; justify-content:center; gap:8px; background:var(--accent); color:var(--on-accent); border-radius:10px; padding:11px 14px; font-size:13.5px; font-weight:650; text-decoration:none; margin-bottom:9px; transition:.16s;}
+  .wa-btn:hover{filter:brightness(1.08); transform:translateY(-1px);}
+  .mail-lnk{display:flex; align-items:center; gap:7px; font-size:12.3px; color:var(--muted); text-decoration:none; word-break:break-all;}
+  .mail-lnk:hover{color:var(--accent);}
+  .closing{text-align:center; background:var(--surface); border:1px solid var(--border); border-radius:15px; padding:26px 24px; margin-top:14px; font-size:14px; color:var(--text-dim);}
+  .closing b{color:var(--text);}
+
+  footer{text-align:center; padding:32px 26px 44px; color:var(--muted); font-size:12.5px; border-top:1px solid var(--border); margin-top:26px;}
+  footer a{color:var(--accent); text-decoration:none;}
+  .totop{position:fixed; right:24px; bottom:24px; z-index:90; width:42px; height:42px; border-radius:12px; cursor:pointer; background:var(--surface); border:1px solid var(--border-strong); color:var(--text); font-size:16px; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow); opacity:0; pointer-events:none; transition:.22s; font-family:inherit;}
+  .totop.show{opacity:1; pointer-events:auto;}
+  .totop:hover{border-color:var(--accent); color:var(--accent);}
+  .hidden{display:none !important;}
+  .no-results{text-align:center; padding:44px 20px; color:var(--muted); font-size:14px;}
+  #toast{position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px); background:var(--accent); color:var(--on-accent); padding:10px 20px; border-radius:10px; font-size:13px; font-weight:600; z-index:160; opacity:0; pointer-events:none; transition:.25s; box-shadow:var(--shadow);}
+  #toast.show{opacity:1; transform:translate(-50%,0);}
+
+  @media(prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important; scroll-behavior:auto !important;}}
+
+  @media print{
+    body{background:#fff; color:#000;}
+    .topbar,.search-sticky,.search-status,nav.sidenav,.totop,.triage,.stats,#progress,#toast,#lightbox,.resolve,.video-row:not(.ready){display:none !important;}
+    .layout{display:block; padding:0; max-width:100%;}
+    .entry,.faq,.callout,.contact-card,.closing,.shot-frame{border:1px solid #ccc !important; background:#fff !important; break-inside:avoid; box-shadow:none !important;}
+    .hot{background:#000 !important; color:#fff !important;}
+    .hot::before,.spot{display:none !important;}
+    h1.title,.group-head h2,.entry-top h3{color:#000 !important;}
+    .tldr,.prose,.steps li,.bullets,.faq .body,.warn-box{color:#222 !important;}
+    a{color:#000 !important; text-decoration:underline;}
+    section.topic-group{break-inside:avoid-page;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="mark">M</span>
+    <span>Marista Brasília<small>Base de Conhecimento · Iônica</small></span>
+  </div>
+  <div class="topbar-right">
+    <button class="ghost-btn" id="themeBtn" type="button" aria-label="Alternar tema"><span id="themeIco">☀️</span><span class="lbl-txt" id="themeLbl">Tema claro</span></button>
+    <button class="ghost-btn" onclick="window.print()" type="button">🖨️<span class="lbl-txt">Imprimir</span></button>
+  </div>
+</div>
+
+<header class="hero">
+  <span class="kicker">Tecnologia Educacional · Marista Brasília</span>
+  <h1 class="title">Tudo sobre a <em>iônica</em>, sem enrolação</h1>
+  <p class="subtitle">Resposta em segundos: leia o resumo de uma linha, siga o passo a passo ou assista ao vídeo curto. O que for mais rápido para você.</p>
+</header>
+
+<div class="triage">
+  <div class="triage-q">Por onde você quer começar?</div>
+  <div class="triage-grid">
+    <a class="triage-card" href="#acesso"><span class="ico">🔑</span><b>É meu primeiro acesso</b><span>Entrar na plataforma e conferir se estou na escola certa.</span></a>
+    <a class="triage-card" href="#minha-ionica"><span class="ico">🧭</span><b>Quero achar uma coisa</b><span>Descobrir onde fica cada área e o que dá para fazer nelas.</span></a>
+    <a class="triage-card" href="#problemas"><span class="ico">🛟</span><b>Está dando erro</b><span>Travou, pediu login de novo ou a tela não carrega.</span></a>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="statTopics">–</b><span>Tópicos</span></div>
+    <div class="stat"><b id="statVideos">–</b><span>Com vídeo</span></div>
+    <div class="stat"><b id="statFaqs">–</b><span>Erros resolvidos</span></div>
+  </div>
+</div>
+
+<div class="search-sticky" id="searchBar">
+  <div class="search-inner">
+    <span class="search-icon">🔎</span>
+    <input id="search" type="text" autocomplete="off" placeholder="Buscar: cache, biblioteca, senha, relatórios, sessão expirada…" aria-label="Buscar na base de conhecimento">
+    <span class="search-hint">/</span>
+  </div>
+  <div class="search-status" id="searchStatus"></div>
+</div>
+
+<div class="layout">
+
+  <nav class="sidenav" aria-label="Índice">
+    <div class="nav-label">Navegar</div>
+    <a href="#acesso">🔑 Como acessar</a>
+    <a href="#minha-ionica">🏠 Minha iônica</a>
+    <a href="#biblioteca">📖 Biblioteca</a>
+    <a href="#modulos">🔗 Módulos</a>
+    <a href="#gestao">⚙️ Perfil e ajustes</a>
+    <a href="#problemas">🛟 Deu problema?</a>
+    <a href="#ajuda-oficial">📚 Ajuda oficial</a>
+    <a href="#suporte">☎️ Falar com a TE</a>
+  </nav>
+
+  <main id="conteudo">
+
+    <div class="callout">
+      <div class="ttl">💡 Entenda a iônica em 20 segundos</div>
+      A iônica é o ambiente digital da FTD Educação usado pelo Marista. Na prática ela é um <b>hub</b>: reúne módulos próprios (Biblioteca, Salas, Atividades, IA) e <b>plataformas externas</b> que abrem por login integrado — Simulados FTD, Estuda.com, Minha Escolha, Comunidade Integra e Consultoria On-line. Guardar isso já resolve metade dos perrengues: quase todo "erro de acesso" acontece na passagem de um sistema para o outro.
+    </div>
+
+    <!-- ACESSO -->
+    <section class="topic-group" id="acesso">
+      <div class="group-head"><div class="badge">🔑</div><h2>Como acessar a iônica?</h2></div>
+
+      <article class="entry" id="login" data-kw="acesso login senha entrar iônica sso microsoft google home primeiro acesso tela de login criar conta">
+        <div class="entry-top">
+          <h3>Fazer login <a class="anchor" href="#login" title="Copiar link deste tópico">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 30s</span><span class="fmt pic">🖼️ Com imagens</span></div>
+        </div>
+
+        <div class="tldr"><span class="lbl">Resumo</span><span>Professor entra <b>só pelo botão Microsoft</b>. Usuário e senha, "Criar conta" e o botão do Google <b>não servem</b> para você.</span></div>
+
+        <div class="flow">
+
+          <div class="flow-step">
+            <h4>Abra a iônica e clique em <b>Microsoft</b></h4>
+            <p>Acesse <code class="path">home.souionica.com.br</code>. Ignore os campos de usuário e senha e o botão "Criar conta" — desça até <b>"ou, acesse com:"</b>.</p>
+            <figure class="shot">
+              <div class="shot-frame" data-full="img/login-ionica.png">
+                <img src="img/login-ionica.png" alt="Tela de login da iônica com campos de usuário e senha e botões Google e Microsoft" loading="lazy">
+                <button class="hot warn" style="--x:50%; --y:24%" data-x="50%" data-y="24%" type="button" aria-label="Campos de usuário e senha">
+                  ✕<span class="tip">Não use estes campos — você não tem senha própria da iônica</span>
+                </button>
+                <button class="hot warn" style="--x:43.7%; --y:70%" data-x="43.7%" data-y="70%" type="button" aria-label="Botão Google">
+                  ✕<span class="tip">O botão do Google existe, mas não é o caminho do professor</span>
+                </button>
+                <button class="hot" style="--x:56.2%; --y:70%" data-x="56.2%" data-y="70%" type="button" aria-label="Botão Microsoft">
+                  ✓<span class="tip">É aqui! Entre por <b>Microsoft</b></span>
+                </button>
+              </div>
+              <figcaption>Passe o mouse nos pontos para focar cada área. <span class="zoomhint">Clique na imagem para ampliar.</span></figcaption>
+            </figure>
+          </div>
+
+          <div class="flow-step">
+            <h4>Escolha sua conta institucional</h4>
+            <p>A Microsoft mostra as contas já usadas neste navegador. Clique na sua, com final <b>@maristabrasil.org</b>. Se não aparecer, use "Use outra conta".</p>
+            <figure class="shot">
+              <div class="shot-frame" data-full="img/escolher-conta.png">
+                <img src="img/escolher-conta.png" alt="Tela da Microsoft Escolha uma conta, mostrando a conta institucional do professor" loading="lazy">
+                <button class="hot" style="--x:48%; --y:30%" data-x="48%" data-y="30%" type="button" aria-label="Sua conta institucional">
+                  ✓<span class="tip">Sua conta institucional — a que termina em @maristabrasil.org</span>
+                </button>
+                <button class="hot" style="--x:45%; --y:76%" data-x="45%" data-y="76%" type="button" aria-label="Use outra conta">
+                  +<span class="tip">Não aparece na lista? Clique em "Use outra conta" e digite seu e-mail</span>
+                </button>
+              </div>
+              <figcaption>As demais contas foram borradas por privacidade.</figcaption>
+            </figure>
+          </div>
+
+          <div class="flow-step">
+            <h4>Se pedir autenticação, confirme pelo app ou pelo celular</h4>
+            <p>Depende de como sua conta está configurada — nos dois casos é rápido:</p>
+            <div class="flow-alt">
+              <figure class="shot">
+                <span class="alt-tag">Opção A · App Outlook</span>
+                <div class="shot-frame" data-full="img/autenticacao-app.png">
+                  <img src="img/autenticacao-app.png" alt="Tela pedindo aprovação da entrada pelo aplicativo Outlook, exibindo um número" loading="lazy">
+                  <button class="hot" style="--x:81.5%; --y:46%" data-x="81.5%" data-y="46%" type="button" aria-label="Número de aprovação">
+                    ✓<span class="tip">Abra o Outlook no celular e digite este número</span>
+                  </button>
+                </div>
+                <figcaption>Abra o app e informe o número que aparece na tela.</figcaption>
+              </figure>
+              <figure class="shot">
+                <span class="alt-tag">Opção B · SMS</span>
+                <div class="shot-frame" data-full="img/autenticacao-sms.png">
+                  <img src="img/autenticacao-sms.png" alt="Tela pedindo o código enviado por mensagem de texto para o celular" loading="lazy">
+                  <button class="hot" style="--x:70%; --y:42%" data-x="70%" data-y="42%" type="button" aria-label="Campo do código">
+                    ✓<span class="tip">Digite aqui o código que chegou por SMS e clique em Verificar</span>
+                  </button>
+                </div>
+                <figcaption>Código por mensagem de texto — borrado aqui por segurança.</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <h4>Feche o aviso de novidades</h4>
+            <p>Na primeira vez pode aparecer um pop-up apresentando as novidades. É só clicar em <b>Continuar</b> (ou no X) — nada é perdido.</p>
+            <figure class="shot">
+              <div class="shot-frame" data-full="img/home-popup.png">
+                <img src="img/home-popup.png" alt="Pop-up de boas-vindas da iônica com o botão Continuar" loading="lazy">
+                <button class="hot" style="--x:55%; --y:88.5%" data-x="55%" data-y="88.5%" type="button" aria-label="Botão continuar">
+                  ✓<span class="tip">Clique em "Continuar" para seguir</span>
+                </button>
+              </div>
+              <figcaption>Aviso que aparece no primeiro acesso.</figcaption>
+            </figure>
+          </div>
+
+          <div class="flow-step">
+            <h4>Pronto — você está dentro 🎉</h4>
+            <p>Esta é a <b>Minha iônica</b>, sua página inicial. Antes de qualquer coisa, confira no topo se a <b>escola é a certa</b>.</p>
+            <figure class="shot">
+              <div class="shot-frame" data-full="img/home-ionica.png">
+                <img src="img/home-ionica.png" alt="Página inicial Minha iônica com menu lateral, seletor de escola e botão da Inteligência iônica" loading="lazy">
+                <button class="hot" style="--x:54.5%; --y:5%" data-x="54.5%" data-y="5%" type="button" aria-label="Seletor de escola">
+                  1<span class="tip">Confira aqui se a escola é a sua — muda turmas, biblioteca e relatórios</span>
+                </button>
+                <button class="hot" style="--x:13%; --y:5%" data-x="13%" data-y="5%" type="button" aria-label="Menu Biblioteca">
+                  2<span class="tip">"Menu" abre a Biblioteca: Publicações, Recursos, Links, Videoaulas e Labs</span>
+                </button>
+                <button class="hot" style="--x:5%; --y:40%" data-x="5%" data-y="40%" type="button" aria-label="Menu lateral">
+                  3<span class="tip">Menu lateral: Simulados, Minha Escolha, Integra, Consultoria, Avaliações, Relatórios</span>
+                </button>
+                <button class="hot" style="--x:90.5%; --y:89%" data-x="90.5%" data-y="89%" type="button" aria-label="Inteligência iônica">
+                  4<span class="tip">Inteligência iônica: buscar material, criar questões e plano de aula</span>
+                </button>
+                <button class="hot" style="--x:98%; --y:75%" data-x="98%" data-y="75%" type="button" aria-label="Botão de ajuda">
+                  5<span class="tip">Botão "?" — Central de Ajuda oficial e tutoriais da FTD</span>
+                </button>
+              </div>
+              <figcaption>Sua página inicial. Passe o mouse nos números para conhecer cada área.</figcaption>
+            </figure>
+          </div>
+
+        </div>
+
+        <div class="warn-box">
+          <span class="ic">⚠️</span>
+          <span><b>Não conseguiu entrar pela Microsoft?</b> Quer dizer que seu acesso ainda não foi liberado — não adianta tentar criar conta. Procure o <a href="#suporte">responsável pelo seu segmento</a> que a gente resolve a liberação.</span>
+        </div>
+
+        <div class="video-row">🎥 Vídeo curto — a gravar</div>
+      </article>
+    </section>
+
+    <!-- MINHA IONICA -->
+    <section class="topic-group" id="minha-ionica">
+      <div class="group-head"><div class="badge">🏠</div><h2>Minha iônica — a página inicial</h2></div>
+      <p class="group-sub">É a tela que abre depois do login · <code class="path">home.souionica.com.br/home</code></p>
+
+      <article class="entry" id="painel" data-kw="minha ionica pagina inicial atalhos livros atividades salas turmas painel">
+        <div class="entry-top">
+          <h3>O que aparece no painel <a class="anchor" href="#painel">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 20s</span><span class="fmt pic">🖼️ Com imagem</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Atalhos para o que você usou por último: <b>livros, atividades e suas turmas</b>, tudo em uma tela só.</span></div>
+        <figure class="shot">
+          <div class="shot-frame" data-full="img/home-ionica.png">
+            <img src="img/home-ionica.png" alt="Página inicial Minha iônica" loading="lazy">
+            <button class="hot" style="--x:56%; --y:26%" data-x="56%" data-y="26%" type="button" aria-label="Banner da IA">
+              1<span class="tip">Banner da Inteligência iônica: Busca inteligente e Questões inteligentes</span>
+            </button>
+            <button class="hot" style="--x:16%; --y:54%" data-x="16%" data-y="54%" type="button" aria-label="Livros recentes">
+              2<span class="tip">Livros acessados recentemente — continue de onde parou</span>
+            </button>
+            <button class="hot" style="--x:88%; --y:56%" data-x="88%" data-y="56%" type="button" aria-label="Acessar biblioteca">
+              3<span class="tip">Atalho direto para a Biblioteca completa</span>
+            </button>
+          </div>
+          <figcaption>Painel inicial — mais abaixo aparecem Atividades e Salas (suas turmas).</figcaption>
+        </figure>
+        <ul class="bullets">
+          <li><b>Livros</b> — materiais acessados recentemente, para continuar de onde parou.</li>
+          <li><b>Atividades</b> — as que você já publicou.</li>
+          <li><b>Salas</b> — suas turmas (ex.: "Aprofundamento em Ciências Humanas — EM3").</li>
+          <li><b>Inteligência iônica (IA)</b> — banner com "Busca inteligente" e "Questões inteligentes".</li>
+        </ul>
+        <div class="video-row">🎥 Vídeo curto — a gravar</div>
+      </article>
+
+      <article class="entry" id="ia" data-kw="inteligencia ionica ia buscar materiais criar questoes plano de aula botao flutuante beta">
+        <div class="entry-top">
+          <h3>Botão "Inteligência iônica" (IA) <a class="anchor" href="#ia">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 20s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Botão flutuante com três atalhos de IA: buscar material, criar questões e montar plano de aula.</span></div>
+        <ul class="bullets">
+          <li><b>Buscar materiais</b> — acha conteúdo por tema, sem varrer a biblioteca inteira.</li>
+          <li><b>Criar questões</b> — gera questões a partir do que você pedir.</li>
+          <li><b>Criar plano de aula</b> — <i>ainda em BETA</i>: vale revisar antes de levar para a sala.</li>
+        </ul>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+    </section>
+
+    <!-- BIBLIOTECA -->
+    <section class="topic-group" id="biblioteca">
+      <div class="group-head"><div class="badge">📖</div><h2>Biblioteca — as 5 abas</h2></div>
+      <p class="group-sub">Menu hambúrguer no topo → Biblioteca · <code class="path">.../library</code></p>
+
+      <article class="entry" id="publicacoes" data-kw="publicações biblioteca livros materiais etapa ano codigo de acesso fundamental medio">
+        <div class="entry-top">
+          <h3>Publicações <a class="anchor" href="#publicacoes">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 20s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Os <b>livros e materiais</b> da coleção, organizados por etapa e ano.</span></div>
+        <p class="prose">Cobre da Alfabetização ao 9º ano e o Ensino Médio (1ª a 3ª série). Tem filtro e busca — e a opção <b>"Código de acesso"</b> quando você precisa liberar um material que não aparece na sua lista.</p>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="recursos" data-kw="recursos biblioteca videos conteudos interativos avulsos">
+        <div class="entry-top">
+          <h3>Recursos <a class="anchor" href="#recursos">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 15s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Conteúdos <b>avulsos</b> — vídeos e materiais interativos que não estão dentro de um livro.</span></div>
+        <p class="prose">Procurou em Publicações e não achou? Tente aqui: são acervos separados, cada um com sua busca.</p>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="acervo-links" data-kw="acervo de links sites externos artigos musicas contos filmes curadoria">
+        <div class="entry-top">
+          <h3>Acervo de Links <a class="anchor" href="#acervo-links">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 10s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Links externos já <b>curados</b>: artigos, músicas, contos e filmes para usar em aula.</span></div>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="videoaulas" data-kw="videoaulas disciplinas anos finais ensino medio aulas gravadas">
+        <div class="entry-top">
+          <h3>Videoaulas <a class="anchor" href="#videoaulas">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 10s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span><b>19 disciplinas</b> em vídeo, separadas entre Anos Finais e Ensino Médio.</span></div>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="labs" data-kw="labs quant bot robotica cultura maker gamificação anos iniciais missoes">
+        <div class="entry-top">
+          <h3>Labs <a class="anchor" href="#labs">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 10s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Projeto <b>Quant Bot</b>: robótica, cultura maker e gamificação, com missões por ano (Anos Iniciais).</span></div>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+    </section>
+
+    <!-- MODULOS -->
+    <section class="topic-group" id="modulos">
+      <div class="group-head"><div class="badge">🔗</div><h2>Módulos do menu lateral</h2></div>
+      <p class="group-sub">Vários abrem <b>outra plataforma</b> por login integrado. Se pedir login de novo, é sessão expirada — veja <a href="#problemas">Deu problema?</a></p>
+
+      <article class="entry" id="avaliacoes" data-kw="avaliações estuda.com provas questões configurar adicionar adaptações inteligentes prova">
+        <div class="entry-top">
+          <h3>Avaliações (Estuda.com) <a class="anchor" href="#avaliacoes">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 40s</span><span class="fmt vid">🎥 Vídeo</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Abre o <b>Estuda.com</b>, onde você monta provas, adiciona questões e gera adaptações para alunos com NEE.</span></div>
+        <p class="prose">Endereço: <code class="path">app.estuda.com</code> · acesso por login integrado. É o módulo mais documentado até agora:</p>
+        <div class="video-row ready">🎥 <a href="https://youtu.be/rDZt5a4lLvs" target="_blank" rel="noopener">Configurar a prova</a> <span class="sep">·</span> <a href="https://youtu.be/8eb_wxRFIwU" target="_blank" rel="noopener">Adicionar questões</a> <span class="sep">·</span> <a href="https://ajudaescola.estuda.com/hc/pt-br/articles/45698785785755-Adapta%C3%A7%C3%B5es-Inteligentes" target="_blank" rel="noopener">Adaptações Inteligentes</a></div>
+      </article>
+
+      <article class="entry" id="simulados" data-kw="simulados ftd provas simulado externo sso estuda">
+        <div class="entry-top">
+          <h3>Simulados FTD <a class="anchor" href="#simulados">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 10s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Abre a plataforma de simulados da FTD em <code class="path">simulados.estuda.com</code>.</span></div>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="minha-escolha" data-kw="minha escolha orientação vocacional externo sso ftd">
+        <div class="entry-top">
+          <h3>Minha Escolha <a class="anchor" href="#minha-escolha">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 10s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Abre <code class="path">ftd.minhaescolha.com.br</code> por login integrado.</span></div>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="integra" data-kw="comunidade integra ead externo sso formação continuada">
+        <div class="entry-top">
+          <h3>Comunidade Integra <a class="anchor" href="#integra">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 10s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Ambiente EAD da FTD — abre <code class="path">ead-consultoriaonline.ftd.com.br</code> (parâmetro <code class="path">lti=integra</code>).</span></div>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="consultoria" data-kw="consultoria on-line ead externo sso atendimento especialista formação">
+        <div class="entry-top">
+          <h3>Consultoria On-line <a class="anchor" href="#consultoria">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 10s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Mesmo ambiente EAD da Comunidade Integra, mudando só o parâmetro (<code class="path">lti=co</code>).</span></div>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="relatorios" data-kw="relatorios uso desempenho notas estatisticas engajamento acessos">
+        <div class="entry-top">
+          <h3>Relatórios <a class="anchor" href="#relatorios">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 25s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Três relatórios no seletor "Selecionar relatório": <b>Uso</b>, <b>Desempenho</b> e <b>Notas</b>.</span></div>
+        <ul class="bullets">
+          <li><b>Uso</b> — acessos e engajamento na plataforma.</li>
+          <li><b>Desempenho</b> — como os estudantes foram nas atividades.</li>
+          <li><b>Notas</b> — notas por curso e por período.</li>
+        </ul>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="novidades" data-kw="novidades changelog atualizações lançamentos historico o que mudou">
+        <div class="entry-top">
+          <h3>Novidades <a class="anchor" href="#novidades">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 15s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>O <b>changelog oficial</b> — vale olhar quando algo "mudou de lugar" na plataforma.</span></div>
+        <p class="prose">Em <code class="path">/novidades</code>: histórico de atualizações como reorganização de Relatórios, melhorias na correção de atividades, banco de questões e nova página inicial.</p>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="notificacoes" data-kw="notificações avisos alertas central vazia">
+        <div class="entry-top">
+          <h3>Notificações <a class="anchor" href="#notificacoes">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 10s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Central de avisos. Estar vazia ("Nada para conferir por enquanto") é normal.</span></div>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+    </section>
+
+    <!-- PERFIL -->
+    <section class="topic-group" id="gestao">
+      <div class="group-head"><div class="badge">⚙️</div><h2>Perfil, Licenças e Dispositivos</h2></div>
+      <p class="group-sub">Essa área é mais completa no <b>app mobile</b>. Na web, o seletor de escola fica no topo e o "Sair" no menu lateral.</p>
+
+      <article class="entry" id="perfil" data-kw="perfil foto trocar escola unidade sair excluir conta termos politicas">
+        <div class="entry-top">
+          <h3>Perfil <a class="anchor" href="#perfil">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 20s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Clique na <b>sua foto no topo</b>: é lá que você troca de escola/unidade.</span></div>
+        <p class="prose">Permite trocar a foto, <b>trocar de escola/unidade</b>, ver perguntas frequentes, termos e políticas e excluir a conta. Atenção: o botão <b>"Sair"</b> não fica aqui — está no menu lateral.</p>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="licencas" data-kw="licenças adicionar codigo de ativação remover ajustes lixeira">
+        <div class="entry-top">
+          <h3>Licenças <a class="anchor" href="#licencas">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 15s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Em Ajustes → Licenças: <b>"+ Adicionar"</b> com o código de ativação; a lixeira remove.</span></div>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="dispositivos" data-kw="dispositivos vinculados desvincular aparelhos conectados trocou celular computador">
+        <div class="entry-top">
+          <h3>Dispositivos vinculados <a class="anchor" href="#dispositivos">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 15s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Trocou de celular ou computador? <b>Desvincule o antigo</b> pela lixeira para liberar espaço.</span></div>
+        <p class="prose">Em Ajustes → Dispositivos você vê todos os aparelhos conectados à sua conta e remove os que não usa mais.</p>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+
+      <article class="entry" id="ajustes" data-kw="ajustes aparencia modo dia noite tamanho do texto wifi app mobile download">
+        <div class="entry-top">
+          <h3>Outros ajustes <a class="anchor" href="#ajustes">#</a></h3>
+          <div class="meta-tags"><span class="time">⏱ 10s</span></div>
+        </div>
+        <div class="tldr"><span class="lbl">Resumo</span><span>Aparência (dia/noite), tamanho do texto e "Baixar apenas com Wi-Fi".</span></div>
+        <div class="video-row">🎥 Vídeo curto + print — a produzir</div>
+      </article>
+    </section>
+
+    <!-- PROBLEMAS -->
+    <section class="topic-group" id="problemas">
+      <div class="group-head"><div class="badge">🛟</div><h2>Deu problema? Resolva aqui</h2></div>
+      <p class="group-sub">Nada aqui é erro seu — são situações normais da plataforma. Clique no seu caso.</p>
+
+      <details class="faq" data-kw="sessão expirada re-login microsoft escolha uma conta relatorios sso pediu login">
+        <summary>
+          <span class="summary-left"><span class="top1">Mais comum</span> Pediu de novo para "Escolha uma conta" da Microsoft</span>
+          <span class="chev">+</span>
+        </summary>
+        <div class="body">
+          <p>É só <b>sessão expirada</b> — acontece com todo mundo nos módulos com login integrado, principalmente ao abrir Relatórios depois de um tempo parado. Você não perdeu nada.</p>
+          <ol>
+            <li>Selecione novamente sua conta institucional (@maristabrasil.org).</li>
+            <li>Confirme a senha, se ele pedir.</li>
+            <li>Pronto: você volta exatamente para onde estava.</li>
+          </ol>
+          <div class="resolve">
+            <button class="btn-solve" type="button">✓ Resolveu</button>
+            <a class="btn-help" href="#suporte">Ainda não — falar com a TE</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="faq" data-kw="nao consigo entrar acesso nao liberado microsoft primeiro acesso criar conta">
+        <summary><span class="summary-left">O login pela Microsoft não funciona / não tenho acesso</span><span class="chev">+</span></summary>
+        <div class="body">
+          <p>Se o botão Microsoft não te deixa entrar, provavelmente seu acesso <b>ainda não foi liberado</b> na plataforma. Não tente "Criar conta" nem usar usuário e senha — para professor esse caminho não existe.</p>
+          <ol>
+            <li>Confirme que você está escolhendo o e-mail institucional (@maristabrasil.org), não uma conta pessoal.</li>
+            <li>Teste em guia anônima, para descartar uma conta antiga presa no navegador.</li>
+            <li>Continua sem entrar? <b>Fale com o responsável pelo seu segmento</b> — a liberação é feita pela TE.</li>
+          </ol>
+          <div class="resolve">
+            <button class="btn-solve" type="button">✓ Resolveu</button>
+            <a class="btn-help" href="#suporte">Preciso liberar meu acesso</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="faq" data-kw="modulo externo não carrega estuda.com ead simulados erro tela travada nao abre">
+        <summary><span class="summary-left">Um módulo externo não abre ou fica travado</span><span class="chev">+</span></summary>
+        <div class="body">
+          <p>Vale para Estuda.com, Simulados, EAD e Minha Escolha. Faça nesta ordem — o primeiro item já resolve na maioria das vezes:</p>
+          <ol>
+            <li>Confira se a <b>escola no topo</b> da iônica é a correta.</li>
+            <li>Confirme que está logado na <b>conta institucional</b> — conta pessoal ou de outra unidade trava o login integrado.</li>
+            <li>Abra em uma <b>guia anônima</b> para descartar extensão ou cache antigo.</li>
+            <li>Funcionou na anônima? Então limpe cache e cookies na janela normal (passo a passo abaixo).</li>
+          </ol>
+          <div class="resolve">
+            <button class="btn-solve" type="button">✓ Resolveu</button>
+            <a class="btn-help" href="#suporte">Ainda não — falar com a TE</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="faq" data-kw="cache navegador lento tela travada limpar cookies dados de navegação">
+        <summary><span class="summary-left">Como limpar o cache do navegador</span><span class="chev">+</span></summary>
+        <div class="body">
+          <p>Comece pelo atalho — em muitos casos ele já basta: <b>Ctrl + F5</b> (Windows) ou <b>Cmd + Shift + R</b> (Mac). Se não resolver:</p>
+          <ol>
+            <li>Abra as configurações do navegador (⋮ ou ≡ no canto superior direito).</li>
+            <li>Vá em Privacidade / Histórico → <b>"Limpar dados de navegação"</b>.</li>
+            <li>Marque "Imagens e arquivos armazenados em cache" — e também cookies, se o problema for de login.</li>
+            <li>Escolha o período <b>"Todo o período"</b> e confirme.</li>
+            <li>Feche e reabra o navegador antes de tentar de novo.</li>
+          </ol>
+          <div class="resolve">
+            <button class="btn-solve" type="button">✓ Resolveu</button>
+            <a class="btn-help" href="#suporte">Ainda não — falar com a TE</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="faq" data-kw="escola errada trocar unidade selecionada topo turmas sumiram">
+        <summary><span class="summary-left">Apareceu a escola errada (ou minhas turmas sumiram)</span><span class="chev">+</span></summary>
+        <div class="body">
+          <p>Respira: as turmas não sumiram. Clique em <b>"Você está em: [escola]"</b> no topo e selecione a unidade certa. Turmas, biblioteca e relatórios mudam conforme a escola selecionada — quase sempre é isso.</p>
+          <div class="resolve">
+            <button class="btn-solve" type="button">✓ Resolveu</button>
+            <a class="btn-help" href="#suporte">Ainda não — falar com a TE</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="faq" data-kw="senha esqueci recuperar trocar microsoft google institucional">
+        <summary><span class="summary-left">Esqueci a senha ou preciso trocar</span><span class="chev">+</span></summary>
+        <div class="body">
+          <p>A iônica não tem senha própria: o acesso é pela sua conta <b>Microsoft institucional</b>. A recuperação é feita no fluxo normal da Microsoft, fora da plataforma. Se não conseguir por lá, a TE resolve com você.</p>
+          <div class="resolve">
+            <button class="btn-solve" type="button">✓ Resolveu</button>
+            <a class="btn-help" href="#suporte">Ainda não — falar com a TE</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="faq" data-kw="navegador compativel qual usar anonima chrome edge desatualizado">
+        <summary><span class="summary-left">Qual navegador usar</span><span class="chev">+</span></summary>
+        <div class="body">
+          <p>Use <b>Google Chrome</b> ou <b>Microsoft Edge</b> atualizados. Navegador desatualizado costuma causar tela quebrada, botão que não responde e falha no login integrado.</p>
+          <div class="resolve">
+            <button class="btn-solve" type="button">✓ Resolveu</button>
+            <a class="btn-help" href="#suporte">Ainda não — falar com a TE</a>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- AJUDA OFICIAL -->
+    <section class="topic-group" id="ajuda-oficial">
+      <div class="group-head"><div class="badge">📚</div><h2>Central de Ajuda oficial</h2></div>
+
+      <article class="entry" id="central" data-kw="central de ajuda oficial ftd tutoriais suporte contato artigos">
+        <div class="tldr"><span class="lbl">Resumo</span><span>Precisa de algo que não está aqui? A FTD mantém uma central completa em <b>centraldeajuda.souionica.com.br</b>.</span></div>
+        <p class="prose">Acesse pelo botão <b>"?"</b> na lateral da plataforma → "Central de ajuda". É organizada por categoria (Conta e acesso; Página inicial, navegação e perfil; Materiais e biblioteca; Atividades, banco de questões e cursos; Relatórios; App móvel) e por perfil (Estudantes, Professores, Gestão escolar, Famílias).</p>
+        <p class="prose">A seção <b>Professores</b> tem 30 artigos oficiais — são os próximos temas que vamos trazer para cá em formato rápido: criar e corrigir atividades, busca inteligente, criar curso, consultar notas e desempenho, adicionar e baixar livros. O mesmo botão "?" também abre <b>Tutoriais</b> e <b>Entre em contato</b> com o suporte FTD.</p>
+      </article>
+    </section>
+
+    <!-- SUPORTE -->
+    <section class="topic-group" id="suporte">
+      <div class="group-head"><div class="badge">☎️</div><h2>Falar com a Tecnologia Educacional</h2></div>
+      <p class="group-sub">Não achou aqui, o problema continua ou precisa liberar seu acesso? Chame direto quem cuida do seu segmento.</p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="seg">Anos Iniciais</div>
+          <div class="nm">Walyson</div>
+          <a class="wa-btn" href="https://wa.me/556199532943" target="_blank" rel="noopener">💬 Chamar no WhatsApp</a>
+          <a class="mail-lnk" href="mailto:walyson.ramos@maristabrasil.org">✉️ walyson.ramos@maristabrasil.org</a>
+        </div>
+        <div class="contact-card">
+          <div class="seg">Anos Finais</div>
+          <div class="nm">Luis Filipe</div>
+          <a class="wa-btn" href="https://wa.me/556191784413" target="_blank" rel="noopener">💬 Chamar no WhatsApp</a>
+          <a class="mail-lnk" href="mailto:luis.gomes@maristabrasil.org">✉️ luis.gomes@maristabrasil.org</a>
+        </div>
+        <div class="contact-card">
+          <div class="seg">Ensino Médio</div>
+          <div class="nm">Evandro</div>
+          <a class="wa-btn" href="https://wa.me/556193181701" target="_blank" rel="noopener">💬 Chamar no WhatsApp</a>
+          <a class="mail-lnk" href="mailto:evandro.nascimento@maristabrasil.org">✉️ evandro.nascimento@maristabrasil.org</a>
+        </div>
+      </div>
+
+      <div class="closing">
+        <b>Chegou até aqui? Então já sabe mais da iônica que a maioria. 👏</b><br>
+        Guarde esta página nos favoritos — e, se sentir falta de algum tópico, manda pra gente que a gente grava o vídeo e publica.
+      </div>
+    </section>
+
+    <div class="no-results hidden" id="noResults">
+      Nada encontrado por aqui. Tente outra palavra — ou chame a TE do seu segmento, que a gente resolve junto.
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  Base de Conhecimento da <b>Iônica</b> · mantida pela Tecnologia Educacional do <b>Marista Brasília</b><br>
+  Conteúdo mapeado por auditoria na plataforma souionica.com.br · Atualizado em 31/07/2026
+</footer>
+
+<button class="totop" id="toTop" type="button" aria-label="Voltar ao topo">↑</button>
+<div id="toast"></div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Imagem ampliada">
+  <button class="close" type="button" aria-label="Fechar">✕</button>
+  <img src="" alt="">
+</div>
+
+<script>
+(function(){
+  const entries   = Array.from(document.querySelectorAll('.entry, .faq'));
+  const sections  = Array.from(document.querySelectorAll('section.topic-group'));
+  const navLinks  = Array.from(document.querySelectorAll('nav.sidenav a'));
+  const input     = document.getElementById('search');
+  const statusEl  = document.getElementById('searchStatus');
+  const noRes     = document.getElementById('noResults');
+  const callout   = document.querySelector('.callout');
+  const toast     = document.getElementById('toast');
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toast.classList.remove('show'), 1900);
+  }
+
+  document.getElementById('statTopics').textContent = document.querySelectorAll('.entry').length;
+  document.getElementById('statVideos').textContent = document.querySelectorAll('.video-row.ready').length;
+  document.getElementById('statFaqs').textContent   = document.querySelectorAll('.faq').length;
+
+  /* ---------- áreas de foco nas imagens ---------- */
+  document.querySelectorAll('.shot-frame').forEach(frame => {
+    frame.querySelectorAll('.hot').forEach(hot => {
+      const focus = () => {
+        frame.style.setProperty('--sx', hot.dataset.x);
+        frame.style.setProperty('--sy', hot.dataset.y);
+        frame.classList.add('focused');
+      };
+      const blur = () => frame.classList.remove('focused');
+      hot.addEventListener('mouseenter', focus);
+      hot.addEventListener('focus', focus);
+      hot.addEventListener('mouseleave', blur);
+      hot.addEventListener('blur', blur);
+      hot.addEventListener('click', e => e.stopPropagation());
+    });
+  });
+
+  /* ---------- lightbox ---------- */
+  const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('img');
+  document.querySelectorAll('.shot-frame').forEach(frame => {
+    frame.addEventListener('click', () => {
+      const src = frame.dataset.full || frame.querySelector('img').src;
+      lbImg.src = src;
+      lbImg.alt = frame.querySelector('img').alt || '';
+      lb.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  function closeLb(){ lb.classList.remove('show'); document.body.style.overflow = ''; }
+  lb.addEventListener('click', closeLb);
+  lb.querySelector('.close').addEventListener('click', closeLb);
+
+  /* ---------- busca ---------- */
+  function normalize(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+  input.addEventListener('input', () => {
+    const raw = input.value.trim();
+    const q = normalize(raw);
+    let visible = 0;
+
+    entries.forEach(el => {
+      const hay = normalize((el.getAttribute('data-kw')||'') + ' ' + el.innerText);
+      const match = q.length === 0 || hay.includes(q);
+      el.classList.toggle('hidden', !match);
+      if(match) visible++;
+      if(q.length > 1 && match && el.tagName === 'DETAILS') el.open = true;
+    });
+
+    sections.forEach(sec => {
+      const any = sec.querySelector('.entry:not(.hidden), .faq:not(.hidden)');
+      sec.classList.toggle('hidden', q.length > 0 && !any);
+    });
+
+    if(callout) callout.classList.toggle('hidden', q.length > 0);
+    noRes.classList.toggle('hidden', !(q.length > 0 && visible === 0));
+
+    statusEl.textContent = q.length === 0 ? '' :
+      (visible === 0 ? 'Nenhum resultado para "' + raw + '"'
+                     : visible + (visible === 1 ? ' resultado' : ' resultados') + ' para "' + raw + '"  ·  Esc para limpar');
+  });
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && lb.classList.contains('show')){ closeLb(); return; }
+    if(e.key === '/' && document.activeElement !== input){ e.preventDefault(); input.focus(); }
+    if(e.key === 'Escape' && document.activeElement === input){ input.value=''; input.dispatchEvent(new Event('input')); input.blur(); }
+  });
+
+  /* ---------- copiar link do tópico ---------- */
+  document.querySelectorAll('.anchor').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const href = a.getAttribute('href');
+      const url = location.origin + location.pathname + href;
+      history.replaceState(null,'',href);
+      if(navigator.clipboard) navigator.clipboard.writeText(url).then(()=>showToast('Link do tópico copiado ✓')).catch(()=>showToast('Link do tópico ✓'));
+      else showToast('Link do tópico ✓');
+    });
+  });
+
+  /* ---------- confirmação de que resolveu ---------- */
+  document.querySelectorAll('.btn-solve').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const faq = btn.closest('.faq');
+      const row = btn.closest('.resolve');
+      row.innerHTML = '<span class="solved-msg">✓ Boa! Problema resolvido.</span>';
+      faq.classList.add('solved');
+      showToast('Que bom que resolveu 🎉');
+      setTimeout(() => { faq.open = false; }, 900);
+    });
+  });
+
+  /* ---------- progresso, topo, sticky ---------- */
+  const bar = document.getElementById('progress');
+  const searchBar = document.getElementById('searchBar');
+  const top = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+    top.classList.toggle('show', window.scrollY > 600);
+    searchBar.classList.toggle('stuck', window.scrollY > 340);
+  }, {passive:true});
+  top.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+  /* ---------- seção ativa ---------- */
+  const spy = new IntersectionObserver(ents => {
+    ents.forEach(en => {
+      if(en.isIntersecting){
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id));
+      }
+    });
+  }, { rootMargin: '-150px 0px -65% 0px' });
+  sections.forEach(s => spy.observe(s));
+
+  /* ---------- tema ---------- */
+  const btn = document.getElementById('themeBtn');
+  const ico = document.getElementById('themeIco');
+  const lbl = document.getElementById('themeLbl');
+  btn.addEventListener('click', () => {
+    const root = document.documentElement;
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    ico.textContent = next === 'dark' ? '☀️' : '🌙';
+    lbl.textContent = next === 'dark' ? 'Tema claro' : 'Tema escuro';
+  });
+
+  window.addEventListener('beforeprint', () => document.querySelectorAll('details').forEach(d => d.open = true));
+})();
+</script>
+
+</body>
+</html>
