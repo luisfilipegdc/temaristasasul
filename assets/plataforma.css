@@ -1,0 +1,21 @@
+/* plataforma.css — usado pelas páginas de plataforma ainda em construção
+   (conecta.html, evolucional.html). Quando uma delas ganhar conteúdo de
+   verdade, ela passa a seguir o padrão da ionica.html. */
+
+.bullets{margin:0; padding-left:20px; color:var(--text-dim); font-size:14px;}
+.bullets li{margin-bottom:9px;}
+.bullets b{color:var(--text);}
+
+.ajudar{margin-top:10px;}
+.outras{margin-top:10px;}
+
+/* botão de ação primária fora do card de contato */
+.wa-btn.ir{
+  display:inline-flex; width:auto; margin-top:4px; margin-bottom:0;
+  padding:12px 20px;
+}
+
+@media(max-width:640px){
+  header.hero{padding-top:38px;}
+  .wa-btn.ir{display:flex; width:100%;}
+}
