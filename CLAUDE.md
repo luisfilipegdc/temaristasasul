@@ -99,6 +99,21 @@ lista** (`ancorasIonica`, no script do `index.html`).
 - O balão se posiciona sozinho no JS: vira para baixo se não couber acima e desliza na
   horizontal para não sair da tela. Não posicione à mão.
 
+## Passo a passo com botão de próximo
+
+Um `.flow` com 2 ou mais `.flow-step` vira automaticamente um passo a passo: um passo por vez,
+com "Passo N de X", barra de progresso segmentada (clicável para voltar), Anterior/Próximo e
+uma conclusão no fim. **Não precisa marcar nada no HTML** — o JS monta.
+
+Três coisas que não podem quebrar:
+
+- **A busca usa `textContent`, não `innerText`.** Passo inativo é `display:none`, e `innerText`
+  ignora o que não está renderizado — o conteúdo dos passos sumiria do resultado da busca.
+  Com busca ativa, os fluxos abrem (`.aberto`) para a pessoa enxergar o trecho que casou.
+- **Na impressão todos os passos aparecem** e a navegação some. No papel não existe "próximo".
+- **O número do passo vem de `data-n`, não do contador CSS.** `counter-increment` não incrementa
+  em elemento `display:none`, então todos os passos apareceriam como "1".
+
 ## Como a dica na imagem funciona (não quebre isso)
 
 Existe **uma seleção por figura**, com três entradas para ela — o ponto na imagem, o item da

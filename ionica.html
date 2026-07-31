@@ -172,6 +172,63 @@
   .flow-step p b{color:var(--text);}
   .flow-alt{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px;}
   @media(max-width:720px){.flow-alt{grid-template-columns:1fr;} .flow-step{padding-left:38px;}}
+
+  /* ---------- passo a passo com botão de próximo ----------
+     Um passo por vez reduz o custo percebido e tira a rolagem infinita de
+     print + texto. A busca e a impressão desligam o modo (classe .aberto),
+     senão o conteúdo escondido some do resultado e do papel. */
+  .flow.wizard .flow-step{display:none; padding-bottom:4px;}
+  .flow.wizard .flow-step.ativo{display:block;}
+  /* contador CSS não incrementa em elemento display:none — o número vem do data-n */
+  .flow.wizard .flow-step::before{content:attr(data-n);}
+  .flow.wizard .flow-step::after{display:none;}
+  .flow.aberto .flow-step{display:block; padding-bottom:24px;}
+  .flow.aberto .flow-head, .flow.aberto .flow-nav{display:none;}
+
+  .flow-head{display:flex; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap;}
+  .flow-count{font-size:11px; font-weight:700; letter-spacing:1.1px; text-transform:uppercase; color:var(--muted); white-space:nowrap;}
+  .flow-dots{display:flex; gap:6px; flex:1 1 auto;}
+  .flow-dots button{
+    flex:1 1 0; min-width:0; height:5px; padding:0; border:none; border-radius:3px;
+    background:var(--border-strong); cursor:pointer; transition:.18s; font-size:0;
+  }
+  .flow-dots button.feito{background:var(--accent-line);}
+  .flow-dots button.ativo{background:var(--accent);}
+  /* alvo de toque de verdade sem engordar a barrinha */
+  .flow-dots button{position:relative;}
+  .flow-dots button::after{content:''; position:absolute; inset:-14px 0;}
+
+  .flow-nav{display:flex; align-items:center; gap:10px; margin-top:18px; padding-top:15px; border-top:1px solid var(--border);}
+  .flow-nav button{
+    display:inline-flex; align-items:center; justify-content:center; gap:7px; font-family:inherit;
+    border-radius:10px; padding:11px 16px; font-size:13.5px; font-weight:650; cursor:pointer; transition:.16s;
+  }
+  .flow-prev{background:transparent; border:1px solid var(--border-strong); color:var(--text-dim);}
+  .flow-prev:hover:not(:disabled){border-color:var(--accent); color:var(--accent);}
+  .flow-prev:disabled{opacity:.4; cursor:default;}
+  /* o botão final continua azul: verde cheio foge do azul-e-branco e grita
+     mais que o "✓ Resolveu". A mudança de rótulo já sinaliza o fim. */
+  .flow-next{background:var(--accent); border:1px solid var(--accent); color:var(--on-accent); margin-left:auto;}
+  .flow-next:hover{filter:brightness(1.08);}
+  .flow-done{
+    display:none; align-items:center; gap:12px; flex-wrap:wrap; margin-top:18px; padding:14px 16px;
+    background:var(--ok-soft); border:1px solid var(--ok-line); border-radius:12px;
+    font-size:13.5px; color:var(--text-dim);
+  }
+  .flow-done > span{flex:1 1 190px; min-width:0;}
+  .flow-done.show{display:flex;}
+  .flow-done b{color:var(--ok);}
+  .flow-again{
+    margin-left:auto; background:transparent; border:1px solid var(--border-strong); color:var(--text-dim);
+    border-radius:9px; padding:8px 13px; font-size:12.5px; font-family:inherit; cursor:pointer; white-space:nowrap;
+  }
+  .flow-again:hover{border-color:var(--accent); color:var(--accent);}
+  @media(max-width:640px){
+    .flow-nav button{flex:1 1 0; padding:13px 12px;}
+    .flow-next{margin-left:0;}
+    /* espremido ao lado do texto o botão ficava ilegível — vai para baixo, inteiro */
+    .flow-again{margin-left:0; width:100%; padding:12px 13px;}
+  }
   .alt-tag{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--accent); margin-bottom:7px;}
   .top1{font-size:10px; font-weight:700; padding:3px 9px; border-radius:20px; white-space:nowrap; text-transform:uppercase; letter-spacing:.5px; background:var(--accent); color:var(--on-accent);}
 
@@ -426,7 +483,8 @@
 
   @media print{
     body{background:#fff; color:#000;}
-    .topbar,.search-sticky,.search-status,nav.sidenav,.totop,.triage,.stats,#progress,#toast,#lightbox,.resolve,.video-row:not(.ready),.zoom-btn{display:none !important;}
+    .topbar,.search-sticky,.search-status,nav.sidenav,.totop,.triage,.stats,#progress,#toast,#lightbox,.resolve,.video-row:not(.ready),.zoom-btn,.flow-head,.flow-nav,.flow-done{display:none !important;}
+    .flow .flow-step{display:block !important; padding-bottom:20px;}
     .layout{display:block; padding:0; max-width:100%;}
     .entry,.faq,.callout,.contact-card,.closing,.shot-frame{border:1px solid #ccc !important; background:#fff !important; break-inside:avoid; box-shadow:none !important;}
     .hot{background:#000 !important; color:#fff !important;}
@@ -1295,6 +1353,93 @@
   lb.addEventListener('click', e => { if(e.target === lb || e.target === lb.querySelector('.lb-stage')) closeLb(); });
   lb.querySelector('.close').addEventListener('click', closeLb);
 
+  /* ---------- passo a passo com botão de próximo ---------- */
+  const fluxos = [];
+  document.querySelectorAll('.flow').forEach(flow => {
+    const passos = [...flow.querySelectorAll(':scope > .flow-step')];
+    if(passos.length < 2) return;
+
+    passos.forEach((p, i) => p.setAttribute('data-n', i + 1));
+
+    const head = document.createElement('div');
+    head.className = 'flow-head';
+    const cont = document.createElement('span');
+    cont.className = 'flow-count';
+    const dots = document.createElement('div');
+    dots.className = 'flow-dots';
+    dots.setAttribute('role', 'tablist');
+    head.append(cont, dots);
+
+    const nav = document.createElement('div');
+    nav.className = 'flow-nav';
+    const prev = document.createElement('button');
+    prev.type = 'button'; prev.className = 'flow-prev'; prev.textContent = '← Anterior';
+    const next = document.createElement('button');
+    next.type = 'button'; next.className = 'flow-next';
+    nav.append(prev, next);
+
+    const done = document.createElement('div');
+    done.className = 'flow-done';
+    done.innerHTML = '<span><b>Prontinho.</b> Se travou em algum passo, não é nada que você fez — chama a TE.</span>';
+    const again = document.createElement('button');
+    again.type = 'button'; again.className = 'flow-again'; again.textContent = '↺ Ver de novo';
+    done.appendChild(again);
+
+    const marcadores = passos.map((p, i) => {
+      const d = document.createElement('button');
+      d.type = 'button';
+      d.setAttribute('aria-label', 'Ir para o passo ' + (i + 1));
+      d.addEventListener('click', () => ir(i, true));
+      dots.appendChild(d);
+      return d;
+    });
+
+    let atual = 0;
+
+    function ir(i, rolar){
+      atual = Math.max(0, Math.min(passos.length - 1, i));
+      passos.forEach((p, k) => p.classList.toggle('ativo', k === atual));
+      marcadores.forEach((d, k) => {
+        d.classList.toggle('ativo', k === atual);
+        d.classList.toggle('feito', k < atual);
+      });
+      cont.textContent = 'Passo ' + (atual + 1) + ' de ' + passos.length;
+      prev.disabled = atual === 0;
+      const ultimo = atual === passos.length - 1;
+      next.textContent = ultimo ? '✓ Consegui entrar' : 'Próximo →';
+      next.classList.toggle('fim', ultimo);
+      done.classList.remove('show');
+
+      if(rolar){
+        const r = flow.getBoundingClientRect();
+        if(r.top < 132) flow.scrollIntoView({
+          block: 'start',
+          behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth'
+        });
+      }
+    }
+
+    prev.addEventListener('click', () => ir(atual - 1, true));
+    next.addEventListener('click', () => {
+      if(atual < passos.length - 1) ir(atual + 1, true);
+      else { done.classList.add('show'); showToast('Boa! 🎉'); }
+    });
+    again.addEventListener('click', () => ir(0, true));
+
+    flow.insertBefore(head, passos[0]);
+    flow.append(nav, done);
+    flow.classList.add('wizard');
+    ir(0, false);
+
+    /* a busca e a impressão precisam do texto todo à mostra */
+    fluxos.push({
+      abrir: () => { flow.classList.add('aberto'); done.classList.remove('show'); },
+      fechar: () => { flow.classList.remove('aberto'); ir(atual, false); }
+    });
+  });
+  const abrirFluxos = () => fluxos.forEach(f => f.abrir());
+  const fecharFluxos = () => fluxos.forEach(f => f.fechar());
+
   /* ---------- busca ---------- */
   function normalize(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
   input.addEventListener('input', () => {
@@ -1302,8 +1447,12 @@
     const q = normalize(raw);
     let visible = 0;
 
+    /* com o passo a passo ligado, os passos inativos ficam display:none e
+       sumiriam do innerText — o texto tem que continuar encontrável */
+    if(q.length > 0) abrirFluxos(); else fecharFluxos();
+
     entries.forEach(el => {
-      const hay = normalize((el.getAttribute('data-kw')||'') + ' ' + el.innerText);
+      const hay = normalize((el.getAttribute('data-kw')||'') + ' ' + el.textContent);
       const match = q.length === 0 || hay.includes(q);
       el.classList.toggle('hidden', !match);
       if(match) visible++;
@@ -1387,7 +1536,12 @@
     lbl.textContent = next === 'dark' ? 'Tema claro' : 'Tema escuro';
   });
 
-  window.addEventListener('beforeprint', () => document.querySelectorAll('details').forEach(d => d.open = true));
+  /* no papel não existe "próximo": todos os passos vão impressos */
+  window.addEventListener('beforeprint', () => {
+    document.querySelectorAll('details').forEach(d => d.open = true);
+    abrirFluxos();
+  });
+  window.addEventListener('afterprint', () => { if(!input.value.trim()) fecharFluxos(); });
 })();
 </script>
 
