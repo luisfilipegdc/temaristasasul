@@ -1,8 +1,10 @@
-# Base de Conhecimento — Iônica | Marista Brasília
+# Base de Conhecimento | Marista Brasília
 
-Guia rápido da plataforma **iônica** (FTD) para professores, mantido pela Tecnologia Educacional do Marista Brasília.
+Guias rápidos das plataformas usadas pelos professores, mantidos pela Tecnologia Educacional do Marista Brasília.
 
-Site estático: um único `index.html` + a pasta `img/`. Sem build, sem dependências.
+O fluxo é: **link → "quer ajuda em qual plataforma?" → iônica / Marista Conecta / Evolucional → o guia certo.**
+
+Site estático, sem build e sem dependências. A **iônica** está com o guia completo; **Marista Conecta** e **Evolucional** têm a página no ar, ainda em construção, já com o contato da TE.
 
 ## Publicar na Vercel
 
@@ -14,12 +16,22 @@ Site estático: um único `index.html` + a pasta `img/`. Sem build, sem dependê
 ## Estrutura
 
 ```
-index.html          página completa (HTML + CSS + JS inline)
-img/                capturas de tela usadas nos passo a passo
-vercel.json         cache das imagens e URLs limpas
+index.html             triagem das plataformas (é o link que se divulga)
+ionica.html            guia da iônica, completo (HTML + CSS + JS inline)
+conecta.html           Marista Conecta — em construção
+evolucional.html       Evolucional — em construção
+assets/base.css        tokens de cor e shell das páginas menores
+assets/plataforma.css  extras das páginas em construção
+assets/tema.js         alternador de tema compartilhado
+img/                   capturas de tela usadas nos passo a passo
+vercel.json            cache das imagens e URLs limpas
 ```
 
+Como o `vercel.json` usa `cleanUrls`, os links são sem `.html` — `href="ionica"`.
+
 ## Como adicionar um tópico novo
+
+Os tópicos ficam na `ionica.html`.
 
 Copie um bloco `<article class="entry">` e ajuste:
 
@@ -49,6 +61,13 @@ Copie um bloco `<article class="entry">` e ajuste:
 - `--x` / `--y` e `data-x` / `data-y` são a posição do ponto **em porcentagem** da imagem (os dois pares precisam ter o mesmo valor).
 - Use `class="hot warn"` para marcar em laranja algo que a pessoa **não** deve clicar.
 - Passar o mouse no ponto escurece o resto da imagem (holofote); clicar na imagem amplia.
+- **No celular e na impressão** o balão não aparece: o texto vira uma legenda tocável abaixo da
+  imagem, montada sozinha a partir dos pontos. Você não precisa escrever nada a mais.
+
+## Como criar um tópico novo em `ionica.html` com link direto
+
+Se o tópico ganhar um `id` novo, acrescente esse `id` na lista `ancorasIonica` do `index.html` —
+é o que faz links antigos no formato `/#meu-topico` continuarem chegando na página certa.
 
 ## Cuidados com privacidade
 

@@ -42,8 +42,17 @@ porque cada virada descartou uma decisão anterior:
 
 ## 2. Estado atual
 
+O site deixou de ser uma página só. O fluxo agora é
+**link → "quer ajuda em qual plataforma?" → iônica / Marista Conecta / Evolucional → guia certo.**
+
 ```
-index.html                      a base de conhecimento completa (HTML+CSS+JS inline)
+index.html                      triagem das plataformas (é o link que se divulga)
+ionica.html                     a base de conhecimento da iônica, completa (CSS+JS inline)
+conecta.html                    Marista Conecta — em construção, com contato da TE
+evolucional.html                Evolucional — em construção, com contato da TE
+assets/base.css                 tokens + shell das páginas menores
+assets/plataforma.css           extras das páginas em construção
+assets/tema.js                  alternador de tema compartilhado
 img/
   login-ionica.png              tela de login da iônica
   escolher-conta.png            "Escolha uma conta" da Microsoft (outras contas BORRADAS)
@@ -58,14 +67,19 @@ HANDOFF.md                      este arquivo
 docs/materiais-estuda/          material anterior sobre o Estuda.com (docx, pptx, html)
 ```
 
-**Seções da página:** Como acessar · Minha iônica · Biblioteca · Módulos · Perfil e ajustes ·
+**Seções da `ionica.html`:** Como acessar · Minha iônica · Biblioteca · Módulos · Perfil e ajustes ·
 Deu problema? · Central de Ajuda oficial · Falar com a TE.
 
-**Funcionalidades da página:** busca instantânea (ignora acento, tecla `/` foca, `Esc` limpa,
+**Funcionalidades da `ionica.html`:** busca instantânea (ignora acento, tecla `/` foca, `Esc` limpa,
 mostra contagem de resultados), índice lateral com seção ativa, tema claro/escuro, barra de
 progresso de leitura, link copiável por tópico (`#`), botão "✓ Resolveu" nos erros, hotspots com
-holofote nas imagens, lightbox, versão de impressão limpa (abre todos os `details` no `beforeprint`),
-botão voltar ao topo.
+holofote nas imagens, legenda tocável no celular e na impressão, lightbox, versão de impressão
+limpa (abre todos os `details` no `beforeprint`), botão voltar ao topo.
+
+**Links antigos continuam funcionando.** Antes da triagem, a iônica era a raiz, então existem
+links compartilhados como `/#login` e `/#problemas`. O `index.html` guarda a lista de âncoras da
+iônica e redireciona esses acessos para `ionica#<âncora>`. Âncora nova na iônica exige acrescentar
+na lista `ancorasIonica` do `index.html` — está anotado no `CLAUDE.md`.
 
 ---
 
@@ -159,6 +173,12 @@ Cada item abaixo é intencional. Se for mexer, saiba o que está removendo:
 
 ## 6. O que falta (backlog priorizado)
 
+0. **Conteúdo do Marista Conecta e do Evolucional.** As duas páginas existem, mas só com o aviso
+   honesto de que o guia está sendo montado e o contato da TE — nenhuma das duas foi auditada,
+   e a regra 7 proíbe inventar. Para destravar: navegar logado nas duas plataformas (como foi
+   feito com a iônica), anotar o fluxo de acesso e os erros comuns, e mandar prints. Aí elas
+   passam a seguir o padrão da `ionica.html`. **É o item mais urgente**, porque a triagem já
+   promete as três plataformas na porta de entrada.
 1. **Gravar os vídeos curtos.** Quase todo tópico está com `🎥 Vídeo curto — a gravar`. Quando
    gravar, troque o `<div class="video-row">` por um `.video-row.ready` com os links, no mesmo
    padrão do tópico "Avaliações (Estuda.com)", e adicione o chip `<span class="fmt vid">🎥 Vídeo</span>`.

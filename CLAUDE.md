@@ -5,11 +5,36 @@ Leia também `HANDOFF.md` para o histórico completo e o estado atual.
 
 ## O que é este repositório
 
-Site estático de **base de conhecimento da plataforma iônica** (FTD Educação), escrito para
-**professores** do **Marista Brasília**. Mantido pela equipe de Tecnologia Educacional (TE).
+Site estático de **base de conhecimento das plataformas** usadas pelos **professores** do
+**Marista Brasília**. Mantido pela equipe de Tecnologia Educacional (TE).
 
-Arquivo único: `index.html` (HTML + CSS + JS inline) + pasta `img/`.
 **Sem build, sem framework, sem dependências.** Publicado na Vercel como site estático.
+
+### Estrutura
+
+```
+index.html          triagem: "Quer ajuda em qual plataforma?" — é o link que se divulga
+ionica.html         guia da iônica (FTD) — completo, CSS e JS inline próprios
+conecta.html        Marista Conecta — em construção
+evolucional.html    Evolucional — em construção
+assets/base.css     tokens de cor + shell (topbar, hero, contatos) das páginas menores
+assets/plataforma.css  extras das páginas em construção
+assets/tema.js      alternador de tema compartilhado
+img/                prints da iônica
+```
+
+O fluxo é sempre: **link → escolher a plataforma → cair no guia certo.**
+
+A `ionica.html` é a página grande e já validada; ela **mantém o CSS/JS inline dela** e não usa
+`assets/base.css`. Não vale a pena migrar só por simetria — se for mexer, mexa por um motivo.
+Quando `conecta`/`evolucional` ganharem conteúdo de verdade, elas seguem o padrão da iônica.
+
+`vercel.json` tem `cleanUrls: true`, então os links são **sem `.html`** (`href="ionica"`).
+
+**Links antigos:** antes da triagem, a iônica era a raiz — existem links por aí como
+`/#login` e `/#problemas`. O `index.html` tem uma lista das âncoras da iônica e redireciona
+esses acessos para `ionica#<âncora>`. **Se criar uma âncora nova na iônica, acrescente na
+lista** (`ancorasIonica`, no script do `index.html`).
 
 ## Regras inegociáveis
 
@@ -29,6 +54,11 @@ Arquivo único: `index.html` (HTML + CSS + JS inline) + pasta `img/`.
    Os prints atuais já passaram por isso.
 7. **Não invente conteúdo de tela.** Só descreva o que foi confirmado por auditoria na plataforma
    ou por print enviado. Se não sabe, deixe o tópico com o marcador de vídeo/print pendente.
+   Vale para plataforma inteira: **Marista Conecta e Evolucional não foram auditados**, então as
+   páginas deles não afirmam nada sobre como funcionam — só assumem que o guia está sendo montado
+   e oferecem o contato da TE.
+8. **Nunca um beco sem saída.** Toda página, mesmo em construção, termina com uma saída real:
+   o WhatsApp de quem cuida do segmento. Página que só diz "em breve" está errada.
 
 ## Convenções de código
 
