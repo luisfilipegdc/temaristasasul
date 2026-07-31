@@ -180,8 +180,9 @@ Cada item abaixo é intencional. Se for mexer, saiba o que está removendo:
    feito com a iônica), anotar o fluxo de acesso e os erros comuns, e mandar prints. Aí elas
    passam a seguir o padrão da `ionica.html`. **É o item mais urgente**, porque a triagem já
    promete as três plataformas na porta de entrada.
-1. **Gravar os vídeos curtos.** Dois já estão no ar, no canal Tecnologia Educacional Marista
-   Asa Sul: *Como acessar a Iônica* (tópico `login`) e *Minha Iônica* (tópico `painel`). Os
+1. **Gravar os vídeos curtos.** Três já estão no ar, no canal Tecnologia Educacional Marista
+   Asa Sul: *Como acessar a Iônica* (tópico `login`), *Minha Iônica* (tópico `painel`) e
+   *Inteligência Iônica* (tópico `ia`, que ainda espera o print da tela). Os
    demais tópicos ainda estão com `🎥 Vídeo curto + print — a produzir`. Para encaixar um vídeo
    novo, copie o bloco `<figure class="video-player">` de um dos dois, troque `data-src` e
    `data-titulo`, acrescente o chip `<span class="fmt vid">🎥 Vídeo</span>` nas `meta-tags` e
