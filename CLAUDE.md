@@ -99,6 +99,25 @@ lista** (`ancorasIonica`, no script do `index.html`).
 - O balão se posiciona sozinho no JS: vira para baixo se não couber acima e desliza na
   horizontal para não sair da tela. Não posicione à mão.
 
+## Como a dica na imagem funciona (não quebre isso)
+
+Existe **uma seleção por figura**, com três entradas para ela — o ponto na imagem, o item da
+legenda e o ponto dentro da imagem ampliada. Nunca dois mecanismos concorrentes.
+
+- **Ponto que parece botão tem que agir como botão.** Já foi tentado deixá-lo com
+  `pointer-events:none` no celular: o toque atravessava e abria o lightbox, e a leitura correta
+  do usuário foi "está quebrado". Se for tornar o ponto inerte de novo, tire o visual de botão.
+- **Tocar no ponto seleciona a dica e NÃO amplia** (`stopPropagation`). Ampliar é o botão
+  "⤢ Ampliar a imagem" ou o clique na imagem fora de um ponto.
+- **A seleção por clique fica travada** (`travado`). Passar o mouse é só prévia. Sem isso, a
+  rolagem que traz o alvo para a tela move a página sob o cursor, dispara `mouseleave` e apaga
+  a seleção no mesmo instante em que ela nasce — já aconteceu.
+- **O botão de ampliar fica FORA da imagem.** Sobreposto, ele tapava pontos (o nº 4 da home e
+  o ✓ do login, em 4 larguras).
+- **Na imagem ampliada os pontos são clonados** com as mesmas porcentagens, e a dica aparece
+  numa barra abaixo da imagem — nunca em balão, que corta. É a única superfície onde o print
+  fica grande o bastante para a dica valer alguma coisa no celular.
+
 ## Legenda tocável (celular e impressão)
 
 Abaixo de 640px — e também na impressão — o balão do hotspot é substituído por uma **legenda

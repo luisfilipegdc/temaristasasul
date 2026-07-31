@@ -51,6 +51,14 @@
   .brand{display:flex; align-items:center; gap:11px; font-weight:700; font-size:14.5px; text-decoration:none; color:var(--text);}
   .brand .mark{width:30px; height:30px; border-radius:9px; flex-shrink:0; background:linear-gradient(140deg,var(--accent),var(--accent-strong)); display:flex; align-items:center; justify-content:center; color:var(--on-accent); font-size:14px; font-weight:800;}
   .brand small{display:block; font-weight:500; font-size:11px; color:var(--muted);}
+  /* com o botão de trocar de plataforma a topbar ficou apertada no celular:
+     o nome encolhe com reticências em vez de quebrar em duas linhas */
+  @media(max-width:640px){
+    .topbar{padding:10px 16px; gap:10px;}
+    .brand{min-width:0;}
+    .brand > span:last-child{min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+    .brand small{overflow:hidden; text-overflow:ellipsis;}
+  }
   .topbar-right{display:flex; align-items:center; gap:9px;}
   .ghost-btn{display:inline-flex; align-items:center; gap:7px; background:transparent; border:1px solid var(--border); color:var(--muted); border-radius:9px; padding:7px 12px; font-size:12px; cursor:pointer; text-decoration:none; transition:.18s; font-family:inherit; white-space:nowrap;}
   .ghost-btn:hover{border-color:var(--accent-line); color:var(--text);}
@@ -228,7 +236,10 @@
      escalado junto, aumentando o texto e estourando a borda da imagem */
   .hot:hover, .hot:focus-visible, .hot.open{width:35px; height:35px; outline:none;}
   /* o ponto ativo sobe acima dos vizinhos, senão outro ponto cobre o balão */
-  .hot:hover, .hot:focus-visible, .hot.open{z-index:8;}
+  .hot:hover, .hot:focus-visible, .hot.open, .hot.ativo{z-index:8;}
+  /* selecionado pela legenda ou pelo toque: o anel branco liga o item ao ponto */
+  .hot.ativo{width:35px; height:35px; box-shadow:0 0 0 4px rgba(255,255,255,.4), 0 3px 12px rgba(0,0,0,.4);}
+  @media(max-width:640px){ .hot.ativo{width:31px; height:31px; box-shadow:0 0 0 3px rgba(255,255,255,.45), 0 3px 12px rgba(0,0,0,.4);} }
   .hot:hover::before, .hot:focus-visible::before{animation:none; opacity:0;}
   @keyframes ping{0%{transform:scale(1); opacity:.85;} 70%{transform:scale(1.9); opacity:0;} 100%{opacity:0;}}
   .hot .tip{
@@ -259,9 +270,9 @@
   .shot-legend{display:none;}
   @media(max-width:640px){
     .hot .tip{display:none;}
-    /* o ponto vira âncora visual: quem comanda é a legenda. Sem isso ele
-       engole o toque e não acontece nada, além de tampar a imagem pequena. */
-    .hot{width:24px; height:24px; font-size:11px; pointer-events:none;}
+    /* o ponto continua tocável — ele parece botão, então precisa agir como
+       botão. Menor que no desktop só para não tampar a imagem pequena. */
+    .hot{width:26px; height:26px; font-size:12px;}
     /* o anel pulsante existe para chamar atenção; com a legenda numerada logo
        abaixo ele vira ruído sobre uma imagem pequena e cola os pontos vizinhos */
     .hot::before{display:none;}
@@ -290,9 +301,54 @@
     opacity:0; pointer-events:none; transition:.24s;
   }
   #lightbox.show{opacity:1; pointer-events:auto;}
-  #lightbox img{max-width:100%; max-height:100%; border-radius:10px; box-shadow:0 30px 70px rgba(0,0,0,.6);}
+  /* No celular o print de 1360px vira ~340px: a bolinha aponta uma coisa que
+     não dá para enxergar. A imagem ampliada é onde a dica faz sentido — por
+     isso os pontos vêm junto, e o texto fica numa barra que não corta nunca. */
+  .lb-stage{display:flex; flex-direction:column; align-items:center; gap:14px; max-width:100%; max-height:100%;}
+  .lb-frame{position:relative; line-height:0; max-width:100%;}
+  #lightbox img{max-width:100%; max-height:72vh; border-radius:10px; box-shadow:0 30px 70px rgba(0,0,0,.6); display:block;}
+  .lb-frame .spot{
+    position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .28s ease; border-radius:10px;
+    background:radial-gradient(ellipse 13% 11% at var(--sx,50%) var(--sy,50%),
+      rgba(0,0,0,0) 0%, rgba(0,0,0,0) 62%, rgba(4,12,24,.72) 100%);
+  }
+  .lb-frame.focused .spot{opacity:1;}
+  /* aqui o ponto é sempre tocável e nunca vira só enfeite */
+  #lightbox .hot{pointer-events:auto; width:32px; height:32px; font-size:14px;}
+  #lightbox .hot::before{display:none;}
+  #lightbox .hot.ativo{width:37px; height:37px; box-shadow:0 0 0 4px rgba(255,255,255,.35);}
+  .lb-tip{
+    margin:0; max-width:620px; text-align:center; font-size:14px; line-height:1.5;
+    color:#eaf1f9; background:rgba(16,28,49,.92); border:1px solid rgba(255,255,255,.18);
+    border-radius:12px; padding:13px 18px;
+  }
+  .lb-tip.vazio{color:#a9bcd2; font-size:13px;}
+  @media(max-width:640px){
+    /* a tela é pequena: a imagem ampliada precisa de toda a altura possível,
+       senão "ampliar" não amplia nada. Dá para dar pinça em cima também. */
+    #lightbox{padding:12px;}
+    #lightbox img{max-height:74vh;}
+    .lb-stage{gap:10px;}
+    .lb-tip{font-size:13.5px; padding:11px 14px;}
+    #lightbox .close{top:14px; right:14px;}
+  }
+
+  /* Botão de ampliar: abrir a imagem é intenção, não efeito colateral.
+     Fica FORA da imagem de propósito — sobreposto a ela, acabava tapando
+     um ponto (o nº 4 da home e o ✓ do login, conferido em 4 larguras). */
+  .shot-tools{display:flex; justify-content:flex-end; margin-top:8px;}
+  .zoom-btn{
+    display:inline-flex; align-items:center; gap:7px; background:transparent;
+    border:1px solid var(--border-strong); color:var(--muted); border-radius:9px;
+    padding:7px 12px; font-size:12px; font-family:inherit; font-weight:600;
+    cursor:pointer; line-height:1.2; transition:.16s;
+  }
+  .zoom-btn:hover{border-color:var(--accent); color:var(--accent);}
+  @media(max-width:640px){ .zoom-btn{padding:10px 14px; font-size:12.5px;} }
   #lightbox .close{position:absolute; top:20px; right:26px; background:transparent; border:1px solid rgba(255,255,255,.3); color:#fff; width:38px; height:38px; border-radius:10px; font-size:18px; cursor:pointer; font-family:inherit;}
   #lightbox .close:hover{border-color:#fff;}
+  /* o anel de foco padrão do navegador vinha âmbar — fora da identidade */
+  #lightbox .close:focus-visible{outline:none; border-color:#fff; box-shadow:0 0 0 3px rgba(255,255,255,.35);}
 
   .video-row{display:flex; align-items:center; gap:9px; margin-top:14px; padding:10px 14px; border-radius:10px; background:transparent; border:1px dashed var(--border-strong); font-size:12.5px; color:var(--muted); flex-wrap:wrap;}
   .video-row.ready{border-style:solid; border-color:var(--accent-line); background:var(--accent-soft); color:var(--text-dim);}
@@ -370,7 +426,7 @@
 
   @media print{
     body{background:#fff; color:#000;}
-    .topbar,.search-sticky,.search-status,nav.sidenav,.totop,.triage,.stats,#progress,#toast,#lightbox,.resolve,.video-row:not(.ready){display:none !important;}
+    .topbar,.search-sticky,.search-status,nav.sidenav,.totop,.triage,.stats,#progress,#toast,#lightbox,.resolve,.video-row:not(.ready),.zoom-btn{display:none !important;}
     .layout{display:block; padding:0; max-width:100%;}
     .entry,.faq,.callout,.contact-card,.closing,.shot-frame{border:1px solid #ccc !important; background:#fff !important; break-inside:avoid; box-shadow:none !important;}
     .hot{background:#000 !important; color:#fff !important;}
@@ -989,7 +1045,13 @@
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Imagem ampliada">
   <button class="close" type="button" aria-label="Fechar">✕</button>
-  <img src="" alt="">
+  <div class="lb-stage">
+    <div class="lb-frame">
+      <img src="" alt="">
+      <div class="spot" aria-hidden="true"></div>
+    </div>
+    <p class="lb-tip" id="lbTip"></p>
+  </div>
 </div>
 
 <script>
@@ -1014,14 +1076,75 @@
   document.getElementById('statVideos').textContent = document.querySelectorAll('.video-row.ready').length;
   document.getElementById('statFaqs').textContent   = document.querySelectorAll('.faq').length;
 
-  /* ---------- áreas de foco nas imagens ---------- */
+  /* ---------- áreas de foco nas imagens ----------
+     Um controlador por figura. Os pontos na imagem e os itens da legenda são
+     duas entradas para a MESMA seleção — nunca dois mecanismos concorrentes.
+     Ponto que parece botão precisa se comportar como botão: no celular ele
+     seleciona a dica, e não abre o lightbox. */
   const placers = [];
-  document.querySelectorAll('.shot-frame').forEach(frame => {
-    frame.querySelectorAll('.hot').forEach(hot => {
+
+  document.querySelectorAll('.shot').forEach(fig => {
+    const frame = fig.querySelector('.shot-frame');
+    if(!frame) return;
+    const hots = [...frame.querySelectorAll('.hot')];
+    if(!hots.length) return;
+
+    /* legenda tocável, montada a partir dos próprios pontos —
+       sem texto duplicado no HTML para manter em dia */
+    const list = document.createElement('div');
+    list.className = 'shot-legend';
+    const itens = [];
+
+    const marcaDe = h => (h.firstChild && h.firstChild.nodeType === 3 ? h.firstChild.nodeValue : '').trim();
+    const textoDe = h => { const t = h.querySelector('.tip'); return t ? t.textContent : ''; };
+
+    /* seleção por clique fica "travada": passar o mouse é só prévia.
+       Sem isso, a rolagem abaixo move a página sob o cursor, dispara
+       mouseleave e apaga a seleção no mesmo instante em que ela nasce. */
+    let travado = false;
+
+    function selecionar(i, origem){
+      const hot = hots[i];
+      hots.forEach(h => h.classList.remove('ativo', 'open'));
+      itens.forEach(b => b.setAttribute('aria-pressed', 'false'));
+
+      hot.classList.add('ativo');
+      if(origem !== 'hover') hot.classList.add('open');   /* balão fica no desktop */
+      if(itens[i]) itens[i].setAttribute('aria-pressed', 'true');
+      travado = origem !== 'hover';
+
+      frame.style.setProperty('--sx', hot.dataset.x);
+      frame.style.setProperty('--sy', hot.dataset.y);
+      frame.classList.add('focused');
+
+      /* de nada adianta destacar o que já saiu da tela — mas só rola até
+         algo que esteja realmente renderizado (a legenda some no desktop) */
+      const item = itens[i];
+      const alvo = (origem === 'ponto' && item && item.offsetParent) ? item
+                 : (origem === 'legenda' ? frame : null);
+      if(!alvo) return;
+      const r = alvo.getBoundingClientRect();
+      if(r.top < 132 || r.bottom > window.innerHeight){
+        alvo.scrollIntoView({
+          block: 'center',
+          behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth'
+        });
+      }
+    }
+
+    function limpar(forcado){
+      if(travado && !forcado) return;
+      travado = false;
+      hots.forEach(h => h.classList.remove('ativo', 'open'));
+      itens.forEach(b => b.setAttribute('aria-pressed', 'false'));
+      frame.classList.remove('focused');
+    }
+
+    hots.forEach((hot, i) => {
       const tip = hot.querySelector('.tip');
 
       /* posiciona o balão antes de mostrar: vira para baixo se não couber acima
-         e desliza na horizontal para não passar da borda da imagem nem da tela */
+         e desliza na horizontal para não sair da tela */
       const place = () => {
         if(!tip) return;
         hot.classList.remove('tip-down');
@@ -1033,66 +1156,30 @@
 
         if(hr.top - th - 12 < fr.top) hot.classList.add('tip-down');
 
-        /* limita pela tela, não pelo frame: em figuras estreitas o balão é mais
-           largo que a imagem e o balão pode passar da borda dela sem problema */
+        /* limita pela tela, não pelo frame: em figura estreita o balão é mais
+           largo que a imagem e pode passar da borda dela sem problema */
         const pad = 8;
-        const center = hr.left + hr.width / 2;
+        const centro = hr.left + hr.width / 2;
         const min = pad, max = document.documentElement.clientWidth - pad;
         let shift = 0;
-        if(center - tw / 2 < min)      shift = min - (center - tw / 2);
-        else if(center + tw / 2 > max) shift = max - (center + tw / 2);
+        if(centro - tw / 2 < min)      shift = min - (centro - tw / 2);
+        else if(centro + tw / 2 > max) shift = max - (centro + tw / 2);
         if(shift) tip.style.setProperty('--shift', shift.toFixed(1) + 'px');
       };
+      placers.push(place);
 
-      const focus = () => {
-        place();
-        frame.style.setProperty('--sx', hot.dataset.x);
-        frame.style.setProperty('--sy', hot.dataset.y);
-        frame.classList.add('focused');
-      };
-      const blur = () => { frame.classList.remove('focused'); hot.classList.remove('open'); };
-      hot.addEventListener('mouseenter', focus);
-      hot.addEventListener('focus', focus);
-      hot.addEventListener('mouseleave', blur);
-      hot.addEventListener('blur', blur);
+      const aoEntrar = () => { place(); selecionar(i, 'hover'); };
+      hot.addEventListener('mouseenter', aoEntrar);
+      hot.addEventListener('focus', aoEntrar);
+      hot.addEventListener('mouseleave', limpar);
+      hot.addEventListener('blur', limpar);
 
-      /* no celular não existe hover: o toque abre o balão do ponto
-         (e não o lightbox, por isso o stopPropagation) */
+      /* o toque no ponto seleciona a dica — e não abre o lightbox */
       hot.addEventListener('click', e => {
         e.stopPropagation();
-        const abrir = !hot.classList.contains('open');
-        document.querySelectorAll('.hot.open').forEach(o => o.classList.remove('open'));
-        if(abrir){ focus(); hot.classList.add('open'); }
-        else blur();
+        if(hot.classList.contains('open')) limpar(true);
+        else { place(); selecionar(i, 'ponto'); }
       });
-
-      placers.push(place);
-    });
-  });
-  /* posiciona também em repouso: balão fora da tela aumenta a largura da
-     página e cria rolagem horizontal no celular */
-  const placeAll = () => placers.forEach(fn => fn());
-  placeAll();
-  window.addEventListener('load', placeAll);
-  let placeT; window.addEventListener('resize', () => { clearTimeout(placeT); placeT = setTimeout(placeAll, 120); });
-  /* toque fora fecha o balão aberto */
-  document.addEventListener('click', () => document.querySelectorAll('.hot.open').forEach(o => o.classList.remove('open')));
-
-  /* legenda tocável do celular, montada a partir dos próprios pontos —
-     nada de texto duplicado no HTML para manter em dia */
-  document.querySelectorAll('.shot').forEach(fig => {
-    const frame = fig.querySelector('.shot-frame');
-    if(!frame) return;
-    const hots = [...frame.querySelectorAll('.hot')];
-    if(!hots.length) return;
-
-    const list = document.createElement('div');
-    list.className = 'shot-legend';
-
-    hots.forEach(hot => {
-      const tip = hot.querySelector('.tip');
-      if(!tip) return;
-      const marca = (hot.firstChild && hot.firstChild.nodeType === 3 ? hot.firstChild.nodeValue : '').trim();
 
       const b = document.createElement('button');
       b.type = 'button';
@@ -1100,62 +1187,112 @@
 
       const mk = document.createElement('span');
       mk.className = 'mk' + (hot.classList.contains('warn') ? ' warn' : '');
-      mk.textContent = marca || '•';
+      mk.textContent = marcaDe(hot) || '•';
       mk.setAttribute('aria-hidden', 'true');
 
       const tx = document.createElement('span');
-      tx.textContent = tip.textContent;
+      tx.textContent = textoDe(hot);
 
       b.append(mk, tx);
       b.addEventListener('click', () => {
-        const jaAtivo = b.getAttribute('aria-pressed') === 'true';
-        list.querySelectorAll('button').forEach(o => o.setAttribute('aria-pressed', 'false'));
-        if(jaAtivo){ frame.classList.remove('focused'); return; }
-        b.setAttribute('aria-pressed', 'true');
-        frame.style.setProperty('--sx', hot.dataset.x);
-        frame.style.setProperty('--sy', hot.dataset.y);
-        frame.classList.add('focused');
-
-        /* de nada adianta destacar uma área da imagem que já saiu da tela:
-           em legenda longa o item tocado fica abaixo da imagem */
-        const r = frame.getBoundingClientRect();
-        const topo = 132;                       /* cabeçalho + busca fixos */
-        if(r.top < topo || r.bottom > window.innerHeight){
-          frame.scrollIntoView({
-            block: 'center',
-            behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth'
-          });
-        }
+        if(b.getAttribute('aria-pressed') === 'true') limpar(true);
+        else selecionar(i, 'legenda');
       });
+      itens.push(b);
       list.appendChild(b);
     });
 
     fig.insertBefore(list, fig.querySelector('figcaption'));
+
+    /* clicar na imagem (fora de um ponto) amplia — os pontos param a
+       propagação, então errar o alvo virou a exceção, não a regra */
+    frame.addEventListener('click', () => abrirLightbox(frame, hots, -1));
+
+    /* botão explícito de ampliar: abrir a imagem tem que ser intenção,
+       não efeito colateral de errar o ponto */
+    const tools = document.createElement('div');
+    tools.className = 'shot-tools';
+    const zoom = document.createElement('button');
+    zoom.type = 'button';
+    zoom.className = 'zoom-btn';
+    zoom.innerHTML = '⤢ Ampliar a imagem';
+    zoom.addEventListener('click', () => abrirLightbox(frame, hots, -1));
+    tools.appendChild(zoom);
+    frame.insertAdjacentElement('afterend', tools);
   });
+
+  /* posiciona também em repouso: balão fora da tela aumenta a largura da
+     página e cria rolagem horizontal no celular */
+  const placeAll = () => placers.forEach(fn => fn());
+  placeAll();
+  window.addEventListener('load', placeAll);
+  let placeT; window.addEventListener('resize', () => { clearTimeout(placeT); placeT = setTimeout(placeAll, 120); });
 
   /* "passe o mouse" e "clique" não fazem sentido em tela de toque */
   if(window.matchMedia('(hover:none)').matches){
     document.querySelectorAll('.shot figcaption').forEach(fc => {
       fc.innerHTML = fc.innerHTML
-        .replace(/Passe o mouse nos (pontos|números)[^.]*\./, 'Toque nos itens para destacar cada área.')
-        .replace(/Clique na imagem/g, 'Toque na imagem');
+        .replace(/Passe o mouse nos (pontos|números)[^.]*\./, 'Toque nos pontos ou nos itens abaixo.')
+        .replace(/Clique na imagem para ampliar\./g, 'Toque na imagem para ver maior.');
     });
   }
-
   /* ---------- lightbox ---------- */
-  const lb = document.getElementById('lightbox');
-  const lbImg = lb.querySelector('img');
-  document.querySelectorAll('.shot-frame').forEach(frame => {
-    frame.addEventListener('click', () => {
-      const src = frame.dataset.full || frame.querySelector('img').src;
-      lbImg.src = src;
-      lbImg.alt = frame.querySelector('img').alt || '';
-      lb.classList.add('show');
-      document.body.style.overflow = 'hidden';
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = lb.querySelector('img');
+  const lbFrame = lb.querySelector('.lb-frame');
+  const lbTip   = document.getElementById('lbTip');
+  const DICA_PADRAO = 'Toque nos pontos para ver o que é cada área.';
+
+  /* Os pontos são clonados para cima da imagem ampliada, com as mesmas
+     porcentagens. É aqui que a dica finalmente aparece em cima de algo
+     que dá para ler. */
+  function abrirLightbox(frame, hots, iInicial){
+    const img = frame.querySelector('img');
+    lbImg.src = frame.dataset.full || img.src;
+    lbImg.alt = img.alt || '';
+
+    lbFrame.querySelectorAll('.hot').forEach(h => h.remove());
+    lbFrame.classList.remove('focused');
+    lbTip.textContent = DICA_PADRAO;
+    lbTip.classList.add('vazio');
+
+    const clones = hots.map((h, i) => {
+      const marca = (h.firstChild && h.firstChild.nodeType === 3 ? h.firstChild.nodeValue : '').trim();
+      const dica  = h.querySelector('.tip') ? h.querySelector('.tip').textContent : '';
+      const c = document.createElement('button');
+      c.type = 'button';
+      c.className = 'hot' + (h.classList.contains('warn') ? ' warn' : '');
+      c.style.setProperty('--x', h.dataset.x);
+      c.style.setProperty('--y', h.dataset.y);
+      c.dataset.x = h.dataset.x;
+      c.dataset.y = h.dataset.y;
+      c.textContent = marca || '•';
+      c.setAttribute('aria-label', dica);
+      c.addEventListener('click', ev => { ev.stopPropagation(); escolher(i); });
+      lbFrame.appendChild(c);
+      return { el: c, dica: dica };
     });
-  });
+
+    function escolher(i){
+      clones.forEach(c => c.el.classList.remove('ativo'));
+      const alvo = clones[i];
+      alvo.el.classList.add('ativo');
+      lbFrame.style.setProperty('--sx', alvo.el.dataset.x);
+      lbFrame.style.setProperty('--sy', alvo.el.dataset.y);
+      lbFrame.classList.add('focused');
+      lbTip.textContent = alvo.dica;
+      lbTip.classList.remove('vazio');
+    }
+    if(iInicial >= 0 && clones[iInicial]) escolher(iInicial);
+
+    lb.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    lb.querySelector('.close').focus();
+  }
+
   function closeLb(){ lb.classList.remove('show'); document.body.style.overflow = ''; }
-  lb.addEventListener('click', closeLb);
+  /* fechar só no fundo ou no ✕ — clique nos pontos e na barra de dica não fecha */
+  lb.addEventListener('click', e => { if(e.target === lb || e.target === lb.querySelector('.lb-stage')) closeLb(); });
   lb.querySelector('.close').addEventListener('click', closeLb);
 
   /* ---------- busca ---------- */

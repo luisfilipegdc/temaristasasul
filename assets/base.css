@@ -42,6 +42,13 @@ a{color:var(--accent);}
 .brand{display:flex; align-items:center; gap:11px; font-weight:700; font-size:14.5px; text-decoration:none; color:var(--text);}
 .brand .mark{width:30px; height:30px; border-radius:9px; flex-shrink:0; background:linear-gradient(140deg,var(--accent),var(--accent-strong)); display:flex; align-items:center; justify-content:center; color:var(--on-accent); font-size:14px; font-weight:800;}
 .brand small{display:block; font-weight:500; font-size:11px; color:var(--muted);}
+/* topbar apertada no celular: o nome encolhe em vez de quebrar em duas linhas */
+@media(max-width:640px){
+  .topbar{padding:10px 16px; gap:10px;}
+  .brand{min-width:0;}
+  .brand > span:last-child{min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .brand small{overflow:hidden; text-overflow:ellipsis;}
+}
 .topbar-right{display:flex; align-items:center; gap:9px;}
 .ghost-btn{display:inline-flex; align-items:center; gap:7px; background:transparent; border:1px solid var(--border); color:var(--muted); border-radius:9px; padding:7px 12px; font-size:12px; cursor:pointer; text-decoration:none; transition:.18s; font-family:inherit; white-space:nowrap;}
 .ghost-btn:hover{border-color:var(--accent-line); color:var(--text);}
