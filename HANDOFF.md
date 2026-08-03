@@ -199,6 +199,15 @@ Cada item abaixo é intencional. Se for mexer, saiba o que está removendo:
 
 ## 7. Como publicar (GitHub + Vercel)
 
+**Site no ar:** https://temaristaasasul.vercel.app — é este link que se divulga aos professores.
+
+Atenção à grafia: `temarist**aa**sasul`, com dois "a" (TE Marista **A**sa Sul). O endereço antigo
+`temaristasasul.vercel.app` **morreu em 31/07/2026** e hoje responde 404 `DEPLOYMENT_NOT_FOUND` —
+se alguém reclamar que "o link não abre", é quase certo que está com o antigo salvo.
+
+O nome do **repositório** no GitHub continua `temaristasasul`, com um "a" só. Repositório e
+domínio não batem de propósito — não "corrija" um pelo outro.
+
 Repositório de destino: **`luisfilipegdc/temaristasasul`**
 
 O repositório local já vem com git inicializado e um commit inicial. Basta:

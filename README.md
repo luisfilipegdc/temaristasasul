@@ -2,6 +2,8 @@
 
 Guias rápidos das plataformas usadas pelos professores, mantidos pela Tecnologia Educacional do Marista Brasília.
 
+**No ar em https://temaristaasasul.vercel.app** — com dois "a" (TE Marista **A**sa Sul). O endereço antigo `temaristasasul.vercel.app` saiu do ar em 31/07/2026.
+
 O fluxo é: **link → "quer ajuda em qual plataforma?" → iônica / Marista Conecta / Evolucional → o guia certo.**
 
 Site estático, sem build e sem dependências. A **iônica** está com o guia completo; **Marista Conecta** e **Evolucional** têm a página no ar, ainda em construção, já com o contato da TE.
